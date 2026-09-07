@@ -122,6 +122,37 @@ final class ClaudeUsageCLITests: XCTestCase {
         XCTAssertEqual(reset, date("2026-12-31T03:00:00Z"))
     }
 
+    /// On the hour the minutes are dropped: `3pm`, not `3:00pm`. Reading only
+    /// the `h:mm` spelling left the window with no reset for one hour in
+    /// sixty — which is how this was found, by looking at the notch rather
+    /// than at the tests.
+    func testATimeOnTheHourHasNoMinutesToRead() {
+        let reset = ClaudeUsageCLI.resetDate(from: "Sep 7 at 3pm (Asia/Jakarta)",
+                                             now: date("2026-09-07T06:00:00Z"))
+
+        // 3pm in Jakarta is 08:00 UTC.
+        XCTAssertEqual(reset, date("2026-09-07T08:00:00Z"))
+    }
+
+    /// The whole line, not just the date fragment — a window on the hour has
+    /// to arrive with its reset intact.
+    func testAWindowResettingOnTheHourKeepsItsResetDate() throws {
+        let text = "Current session: 72% used · resets Sep 7 at 3pm (Asia/Jakarta)"
+
+        let windows = try ClaudeUsageCLI.parse(text, now: date("2026-09-07T06:00:00Z"))
+
+        XCTAssertEqual(windows[0].resetsAt, date("2026-09-07T08:00:00Z"))
+    }
+
+    /// Midnight is the other end of the same spelling.
+    func testMidnightIsReadAsMidnight() {
+        let reset = ClaudeUsageCLI.resetDate(from: "Sep 8 at 12am (Asia/Jakarta)",
+                                             now: date("2026-09-07T06:00:00Z"))
+
+        // Midnight in Jakarta is 17:00 UTC the day before.
+        XCTAssertEqual(reset, date("2026-09-07T17:00:00Z"))
+    }
+
     /// `America/...` carries an "am" of its own, so the zone has to come off
     /// before the lower-case meridiem is fixed up for the formatter.
     func testAZoneNameContainingAMDoesNotCorruptTheTime() {

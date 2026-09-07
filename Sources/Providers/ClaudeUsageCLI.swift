@@ -226,8 +226,20 @@ struct ClaudeUsageCLI: Sendable {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = zone
-        formatter.dateFormat = "MMM d 'at' h:mma"
-        guard let parsed = formatter.date(from: stamp) else { return nil }
+
+        // Two spellings, because the minutes are dropped when they are zero:
+        // `Sep 7 at 2:59pm`, but `Sep 7 at 3pm` on the hour. A single
+        // `h:mma` pattern reads the first and rejects the second, which is a
+        // window that loses its reset time for one hour in sixty — long
+        // enough to look like a bug and short enough to miss in a fixture.
+        guard let parsed = ["MMM d 'at' h:mma", "MMM d 'at' ha"]
+            .lazy
+            .compactMap({ format -> Date? in
+                formatter.dateFormat = format
+                return formatter.date(from: stamp)
+            })
+            .first
+        else { return nil }
 
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = zone
