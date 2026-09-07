@@ -42,8 +42,17 @@ actor AntigravityProvider: UsageProvider {
     /// rather than degraded.
     private var everBridged = false
 
-    init(session: URLSession = .shared) {
+    /// How the language server is asked, when a test needs to say. Production
+    /// leaves this nil and goes through `localQuota()`, which spawns `ps` and
+    /// `lsof` to find a port that only exists while Antigravity is running —
+    /// nothing a test can arrange, and the ordering this fixes is exactly what
+    /// would otherwise go uncovered.
+    private let localQuotaOverride: (@Sendable () async -> [LimitWindow]?)?
+
+    init(session: URLSession = .shared,
+         localQuota: (@Sendable () async -> [LimitWindow]?)? = nil) {
         self.session = session
+        self.localQuotaOverride = localQuota
         self.localSession = URLSession(configuration: .ephemeral,
                                        delegate: LocalhostTrust(),
                                        delegateQueue: nil)
@@ -56,16 +65,48 @@ actor AntigravityProvider: UsageProvider {
     nonisolated func forgetCachedCredential() { AntigravityCredentials.forgetCached() }
 
     nonisolated func account() -> ProviderAccount? {
-        guard let credentials = try? AntigravityCredentials.load() else { return nil }
+        // Presence, not contents. This row is rebuilt every time the settings
+        // window renders, and reading the secret to print a plan name made
+        // opening Settings raise the keychain dialogue — the same interruption
+        // the readings themselves now avoid. The item's attributes answer
+        // "is there an account" without being behind that prompt.
+        guard AntigravityCredentials.isSignedIn() else { return nil }
+        // Named only when a fetch has already had to read the token, which is
+        // exactly when Antigravity is not running to be asked instead. A blank
+        // plan is a smaller loss than a dialogue nobody asked for.
+        let held = AntigravityCredentials.held
         return ProviderAccount(
             label: nil,   // the token carries no address
-            plan: credentials.authMethod == "consumer" ? "Personal" : credentials.authMethod,
+            plan: held.map { $0.authMethod == "consumer" ? "Personal" : $0.authMethod },
             source: "Antigravity",
             manageURL: URL(string: "https://antigravity.google")
         )
     }
 
     func fetchSnapshot() async throws -> ProviderSnapshot {
+        // Antigravity's own language server first, before anything is asked of
+        // the keychain. It already holds the credential and the client identity
+        // Google insists on, and answers with the same figure Antigravity's own
+        // panel shows — so where it is running, the token is not needed at all.
+        //
+        // It used to be asked third, after a keychain read and a round trip to
+        // `:loadCodeAssist`. That made the reading depend on a dialogue it did
+        // not need: someone who dismissed the keychain prompt got `accessDenied`
+        // and an empty ring, while the server that would have answered sat
+        // running on the same machine, never asked.
+        if let windows = await localQuota(), !windows.isEmpty {
+            everBridged = true
+            return ProviderSnapshot(id: id, displayName: displayName, glyph: glyph,
+                                    fidelity: .official, status: .ok, windows: windows,
+                                    headlineID: "gemini-weekly")
+        }
+
+        // Antigravity has answered before and is not answering now: it has been
+        // closed or restarted. Keep the last percentage, dimmed and dated,
+        // rather than swapping in a count — and still without a prompt, which
+        // asking for the token here would have caused.
+        if everBridged { throw UsageProviderError.credentialExpired }
+
         let credentials = try AntigravityCredentials.load()
         // Expired is not signed out: Antigravity refreshes this on its own the
         // next time it runs, and the last reading is still true, just old.
@@ -83,7 +124,11 @@ actor AntigravityProvider: UsageProvider {
         )
         request.timeoutInterval = 15
 
-        let (data, response) = try await session.data(for: request)
+        // The body is not read. `:loadCodeAssist` answers with tiers and no
+        // numbers — no used, no limit, no reset — so the only thing this call
+        // still contributes is its status code, which separates "signed out"
+        // from "something else went wrong" before the quota endpoint is tried.
+        let (_, response) = try await session.data(for: request)
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
 
         if status == 401 {
@@ -99,23 +144,6 @@ actor AntigravityProvider: UsageProvider {
             throw UsageProviderError.rateLimited(retryAfter: retry ?? 0)
         }
         guard status == 200 else { throw UsageProviderError.badResponse(status: status) }
-
-        let tier = Self.tier(in: data)
-
-        // Antigravity's own language server first: it holds the client identity
-        // Google insists on, and answers with the same figure the app's own
-        // usage panel shows.
-        if let windows = await localQuota(), !windows.isEmpty {
-            everBridged = true
-            return ProviderSnapshot(id: id, displayName: displayName, glyph: glyph,
-                                    fidelity: .official, status: .ok, windows: windows,
-                                    headlineID: "gemini-weekly")
-        }
-
-        // Antigravity has answered before and is not answering now: keep the
-        // last percentage, dimmed and dated, rather than swapping in a count.
-        // `credentialExpired` is the store's word for "still true, just old".
-        if everBridged { throw UsageProviderError.credentialExpired }
 
         // Then Google directly, which answers for a licensed account.
         if let windows = try await quota(token: credentials.accessToken), !windows.isEmpty {
@@ -154,6 +182,7 @@ actor AntigravityProvider: UsageProvider {
     /// closed is the ordinary case, not a fault, and the caller has an honest
     /// answer to fall back to.
     private func localQuota() async -> [LimitWindow]? {
+        if let localQuotaOverride { return await localQuotaOverride() }
         if let bridge, let windows = try? await AntigravityBridge.quota(
             from: bridge, session: localSession
         ), !windows.isEmpty {
