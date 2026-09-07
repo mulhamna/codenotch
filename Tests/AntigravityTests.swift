@@ -1033,3 +1033,112 @@ final class KeychainDuplicateTests: XCTestCase {
         XCTAssertEqual(winner?.persistentRef, Data("usable".utf8))
     }
 }
+
+/// Which source Antigravity's ring is drawn from, and in what order.
+///
+/// The language server holds the credential and the client identity already,
+/// so it needs nothing from the keychain. Asking it third — after a keychain
+/// read and a round trip to Google — meant that dismissing the keychain prompt
+/// produced an empty ring while the server that would have answered sat running
+/// on the same machine, never asked.
+final class AntigravitySourceOrderTests: XCTestCase {
+
+    override func tearDown() {
+        GoogleStub.reset()
+        super.tearDown()
+    }
+
+    /// The whole point: a language server that answers ends the fetch before
+    /// anything is asked of macOS or of Google.
+    ///
+    /// The request count is the assertion that carries it. `:loadCodeAssist` is
+    /// sent immediately after the credential is read, so zero requests means
+    /// the credential was never read either — which is not otherwise
+    /// observable, the keychain read being a static call with nothing to
+    /// substitute.
+    func testAnAnsweringBridgeEndsTheFetchBeforeTheKeychain() async throws {
+        let windows = [LimitWindow(id: "gemini-weekly", label: "Weekly", usedFraction: 0.2)]
+        let provider = AntigravityProvider(session: GoogleStub.session(),
+                                           localQuota: { windows })
+
+        let snapshot = try await provider.fetchSnapshot()
+
+        XCTAssertEqual(snapshot.windows.map(\.id), ["gemini-weekly"])
+        XCTAssertEqual(snapshot.fidelity, .official)
+        XCTAssertEqual(GoogleStub.requestCount, 0,
+                       "Google was called even though the language server answered")
+    }
+
+    /// Once the server has answered, its going away means Antigravity was
+    /// closed — keep the last reading dated rather than going back to the
+    /// keychain for a number the token cannot produce anyway.
+    func testOnceBridgedItDoesNotFallBackToTheToken() async throws {
+        let answers = Answers([[LimitWindow(id: "gemini-weekly", label: "Weekly", usedFraction: 0.2)], nil])
+        let provider = AntigravityProvider(session: GoogleStub.session(),
+                                           localQuota: { answers.next() })
+
+        _ = try await provider.fetchSnapshot()
+        GoogleStub.reset()
+
+        do {
+            _ = try await provider.fetchSnapshot()
+            XCTFail("expected credentialExpired")
+        } catch UsageProviderError.credentialExpired {
+            XCTAssertEqual(GoogleStub.requestCount, 0,
+                           "it went back to the token after the bridge had answered once")
+        } catch {
+            XCTFail("expected credentialExpired, got \(error)")
+        }
+    }
+}
+
+/// Hands out canned bridge answers in order, so one test can watch Antigravity
+/// answer and then go away.
+private final class Answers: @unchecked Sendable {
+    private let lock = NSLock()
+    private var queued: [[LimitWindow]?]
+
+    init(_ queued: [[LimitWindow]?]) { self.queued = queued }
+
+    func next() -> [LimitWindow]? {
+        lock.lock(); defer { lock.unlock() }
+        return queued.isEmpty ? nil : queued.removeFirst()
+    }
+}
+
+/// Counts what actually reached Google. Nothing should, while the language
+/// server is answering.
+private final class GoogleStub: URLProtocol {
+    private static let lock = NSLock()
+    private static var served = 0
+
+    static func reset() {
+        lock.lock(); served = 0; lock.unlock()
+    }
+
+    static var requestCount: Int {
+        lock.lock(); defer { lock.unlock() }
+        return served
+    }
+
+    static func session() -> URLSession {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [GoogleStub.self]
+        return URLSession(configuration: configuration)
+    }
+
+    override class func canInit(with request: URLRequest) -> Bool { true }
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+
+    override func startLoading() {
+        Self.lock.lock(); Self.served += 1; Self.lock.unlock()
+        // 403 is what a personal account genuinely gets here, and it ends the
+        // fetch without another round trip.
+        let response = HTTPURLResponse(url: request.url!, statusCode: 403,
+                                       httpVersion: nil, headerFields: nil)!
+        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        client?.urlProtocolDidFinishLoading(self)
+    }
+
+    override func stopLoading() {}
+}
