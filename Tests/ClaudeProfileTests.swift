@@ -188,10 +188,16 @@ final class ClaudeProfileTests: XCTestCase {
         let home = URL(fileURLWithPath: "/Users/vinz")
         let store = UsageStore(
             providers: [
-                ClaudeOAuthProvider(profile: .default(home: home), archive: UsageArchive(defaults: defaults)),
+                // `cli: nil` throughout: this is about two profiles being two
+                // cells, and finding the machine's own Claude Code would make
+                // it about what the developer has installed.
+                ClaudeOAuthProvider(profile: .default(home: home),
+                                    archive: UsageArchive(defaults: defaults),
+                                    cli: nil),
                 ClaudeOAuthProvider(profile: ClaudeProfile(slug: "work",
                                                            configDirectory: home.appendingPathComponent(".claude-work")),
-                                    archive: UsageArchive(defaults: defaults))
+                                    archive: UsageArchive(defaults: defaults),
+                                    cli: nil)
             ],
             archive: UsageArchive(defaults: defaults)
         )

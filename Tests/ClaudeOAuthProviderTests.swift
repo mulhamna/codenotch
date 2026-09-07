@@ -87,16 +87,103 @@ final class ClaudeOAuthProviderTests: XCTestCase {
     {"limits":[{"kind":"session","percent":42,"resets_at":"2099-01-01T00:00:00Z"}]}
     """.utf8)
 
-    private func makeProvider(source: CredentialSource) -> ClaudeOAuthProvider {
+    private func makeProvider(source: CredentialSource,
+                              cli: ClaudeUsageCLI? = nil,
+                              cliRefreshInterval: TimeInterval = 5 * 60) -> ClaudeOAuthProvider {
         // A private defaults suite per test: the archive persists the 429 back-off
         // deadline, and a leaked one would silently skip fetches in the next test.
         let name = "ClaudeOAuthProviderTests.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: name)!
         defaults.removePersistentDomain(forName: name)
 
+        // No CLI, because these are the token path's tests. Left to find one,
+        // the provider would answer off `claude "/usage"` on a machine that has
+        // Claude Code installed and off the endpoint on one that does not, and
+        // every assertion below about retries and back-off would depend on the
+        // developer's own setup rather than on the code.
         return ClaudeOAuthProvider(session: StubEndpoint.session(),
                                    archive: UsageArchive(defaults: defaults),
-                                   loadCredentials: { try source.read() })
+                                   loadCredentials: { try source.read() },
+                                   cli: cli,
+                                   cliRefreshInterval: cliRefreshInterval)
+    }
+
+    // MARK: - The CLI path
+
+    /// The point of the whole thing: when `claude "/usage"` answers, nothing
+    /// asks macOS for a credential and nothing calls the endpoint.
+    ///
+    /// Counting is the only way to know. A provider that read the keychain and
+    /// then threw the result away would return exactly the same snapshot, and
+    /// the keychain prompt this exists to avoid would still have appeared.
+    func testAWorkingCLIMeansNoKeychainReadAndNoRequest() async throws {
+        StubEndpoint.reset([.init(status: 200, body: Self.usagePayload)])
+        let source = CredentialSource(readable: true)
+        let provider = makeProvider(source: source, cli: Self.cli(answering: Self.cliUsage))
+
+        let snapshot = try await provider.fetchSnapshot()
+
+        XCTAssertEqual(snapshot.windows.map(\.id), ["session", "weekly_all"])
+        XCTAssertEqual(source.reads, 0, "the keychain was read even though the CLI answered")
+        XCTAssertEqual(StubEndpoint.requestCount, 0, "the endpoint was called even though the CLI answered")
+    }
+
+    /// A CLI that cannot answer is a reason to ask the endpoint, never a reason
+    /// to fail the refresh — otherwise installing Claude Code and signing out
+    /// of it would take the ring down on a machine whose token is fine.
+    func testAFailingCLIFallsBackToTheToken() async throws {
+        StubEndpoint.reset([.init(status: 200, body: Self.usagePayload)])
+        let source = CredentialSource(readable: true)
+        let provider = makeProvider(source: source,
+                                    cli: Self.cli(answering: "Please run /login first"))
+
+        let snapshot = try await provider.fetchSnapshot()
+
+        XCTAssertEqual(snapshot.windows.first?.id, "session")
+        XCTAssertEqual(source.reads, 1, "the token path was not reached")
+        XCTAssertEqual(StubEndpoint.requestCount, 1)
+    }
+
+    /// `UsageStore` polls every 60s while a session is busy, and each ask is a
+    /// subprocess. The windows do not move enough in a minute to be worth one.
+    func testTheCLIIsNotSpawnedOnEveryTick() async throws {
+        let spawns = Counter()
+        let provider = makeProvider(source: CredentialSource(readable: true),
+                                    cli: Self.cli { spawns.increment(); return Self.cliUsage })
+
+        _ = try await provider.fetchSnapshot()
+        _ = try await provider.fetchSnapshot()
+        _ = try await provider.fetchSnapshot()
+
+        XCTAssertEqual(spawns.value, 1, "the CLI was spawned again inside its own interval")
+    }
+
+    /// And it is asked again once the interval has passed, or the ring would
+    /// show one reading for the rest of the session.
+    func testTheCLIIsAskedAgainOnceTheIntervalPasses() async throws {
+        let spawns = Counter()
+        let provider = makeProvider(source: CredentialSource(readable: true),
+                                    cli: Self.cli { spawns.increment(); return Self.cliUsage },
+                                    cliRefreshInterval: 0)
+
+        _ = try await provider.fetchSnapshot()
+        _ = try await provider.fetchSnapshot()
+
+        XCTAssertEqual(spawns.value, 2)
+    }
+
+    private static let cliUsage = """
+    Current session: 38% used · resets Sep 7 at 2:59pm (Asia/Jakarta)
+    Current week (all models): 4% used · resets Sep 14 at 5:59am (Asia/Jakarta)
+    """
+
+    private static func cli(answering text: String) -> ClaudeUsageCLI {
+        cli { text }
+    }
+
+    private static func cli(_ answer: @escaping @Sendable () -> String) -> ClaudeUsageCLI {
+        // The path is never run — `output` is what the provider reaches.
+        ClaudeUsageCLI(binary: URL(fileURLWithPath: "/nonexistent/claude")) { _ in answer() }
     }
 
     private func assertNeedsAuth(from provider: ClaudeOAuthProvider,
@@ -110,6 +197,22 @@ final class ClaudeOAuthProviderTests: XCTestCase {
         } catch {
             XCTFail("expected needsAuth, got \(error)", file: file, line: line)
         }
+    }
+}
+
+/// How many times the CLI was actually asked. "Did it spawn again?" is the
+/// question the throttle exists to answer, and only a count answers it.
+private final class Counter: @unchecked Sendable {
+    private let lock = NSLock()
+    private var count = 0
+
+    func increment() {
+        lock.lock(); count += 1; lock.unlock()
+    }
+
+    var value: Int {
+        lock.lock(); defer { lock.unlock() }
+        return count
     }
 }
 

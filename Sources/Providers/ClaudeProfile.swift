@@ -117,6 +117,37 @@ struct ClaudeProfile: Equatable, Hashable {
     /// Where Claude Code writes one file per running process.
     var sessionsDirectory: URL { configDirectory.appendingPathComponent("sessions") }
 
+    /// Claude Code's own settings file, which carries the signed-in address.
+    ///
+    /// The default profile keeps it *beside* the directory, at `~/.claude.json`;
+    /// a profile reached through `CLAUDE_CONFIG_DIR` keeps it *inside* its own
+    /// directory. Reading the wrong one shows the personal account against the
+    /// work ring, so the distinction matters more than it looks.
+    var accountFileURL: URL {
+        slug == nil
+            ? configDirectory.deletingLastPathComponent().appendingPathComponent(".claude.json")
+            : configDirectory.appendingPathComponent(".claude.json")
+    }
+
+    /// Who is signed in, read from that file.
+    ///
+    /// Worth having because the keychain token does not carry an address, so
+    /// until now the settings row could not say *which* account a ring was for
+    /// — the one question two Claude rings actually raise. It is also readable
+    /// without a keychain prompt, which is the whole point of asking here.
+    func signedInAddress() -> String? {
+        struct Config: Decodable {
+            struct Account: Decodable { let emailAddress: String? }
+            let oauthAccount: Account?
+        }
+        guard let data = try? Data(contentsOf: accountFileURL),
+              let config = try? JSONDecoder().decode(Config.self, from: data),
+              let address = config.oauthAccount?.emailAddress,
+              !address.isEmpty
+        else { return nil }
+        return address
+    }
+
     /// The keychain service the OAuth token is filed under.
     ///
     /// The default directory uses the bare name. Any other `CLAUDE_CONFIG_DIR`

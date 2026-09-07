@@ -1,8 +1,16 @@
 import Foundation
 import os
 
-/// Reads the same usage endpoint Claude Code's own `/usage` uses, with the
-/// OAuth token from the keychain.
+/// One Claude account's limits, read from whichever source can answer without
+/// interrupting anyone.
+///
+/// Two sources, in order. `claude "/usage"` is asked first where the binary is
+/// installed: it reports the same figures off a credential Claude Code already
+/// holds, and needs no keychain access from this app — which matters because
+/// Claude Code files a new keychain item on every token rotation, so a grant
+/// the user gives against the old item is good for about an hour. Where that
+/// fails or Claude Code is not installed, the usage endpoint is called directly
+/// with the OAuth token from the keychain, exactly as before.
 ///
 /// One instance per `ClaudeProfile`: a work login kept under `~/.claude-work`
 /// has its own token, its own limits and its own ring, and this reads exactly
@@ -39,10 +47,28 @@ actor ClaudeOAuthProvider: UsageProvider {
     /// `ClaudeKeychain`; a test substitutes a fake credential source instead.
     private let loadCredentials: @Sendable () throws -> ClaudeCredentials
 
+    /// How the CLI is asked, or nil where Claude Code is not installed. Nil is
+    /// resolved once at init rather than per refresh: the answer only changes
+    /// when someone installs or removes Claude Code, and the app is relaunched
+    /// either way.
+    nonisolated private let cli: ClaudeUsageCLI?
+    /// A subprocess is far more expensive than an HTTP call, and `UsageStore`
+    /// polls every 60s while a session is busy. The windows barely move in a
+    /// minute, so the last answer is reused in between.
+    private let cliRefreshInterval: TimeInterval
+    private var lastCLIWindows: (windows: [LimitWindow], at: Date)?
+    /// Stamped on every spawn, successful or not. Without it a Claude Code that
+    /// is installed but signed out costs a process on every tick, forever.
+    private var lastCLIAttempt: Date?
+
     init(profile: ClaudeProfile = .default(),
          session: URLSession = .shared,
          archive: UsageArchive = UsageArchive(),
-         loadCredentials: (@Sendable () throws -> ClaudeCredentials)? = nil) {
+         loadCredentials: (@Sendable () throws -> ClaudeCredentials)? = nil,
+         cli: ClaudeUsageCLI? = ClaudeUsageCLI.locate(),
+         cliRefreshInterval: TimeInterval = 5 * 60) {
+        self.cli = cli
+        self.cliRefreshInterval = cliRefreshInterval
         self.profile = profile
         self.id = profile.id
         self.displayName = profile.displayName
@@ -57,6 +83,21 @@ actor ClaudeOAuthProvider: UsageProvider {
     }
 
     func fetchSnapshot() async throws -> ProviderSnapshot {
+        // Ahead of the back-off check on purpose. That deadline is the
+        // endpoint's, and the CLI does not share the endpoint's rate limit —
+        // there is no reason for a 429 on one to darken a ring the other can
+        // still fill.
+        if let windows = await cliWindows() {
+            return ProviderSnapshot(
+                id: id,
+                displayName: displayName,
+                glyph: glyph,
+                fidelity: .official,
+                status: .ok,
+                windows: windows,
+                headlineID: "session"
+            )
+        }
         if let retryNoEarlierThan, retryNoEarlierThan > Date() {
             let remaining = retryNoEarlierThan.timeIntervalSinceNow
             Log.usage.debug("skipping fetch, backing off for \(remaining, format: .fixed(precision: 0))s")
@@ -89,6 +130,39 @@ actor ClaudeOAuthProvider: UsageProvider {
                 Log.usage.notice("rate limited (\(self.consecutiveRateLimits)x), next attempt in \(retryAfter, format: .fixed(precision: 0))s")
             }
             throw error
+        }
+    }
+
+    /// What `claude "/usage"` last said, or nil to mean "use the token path".
+    ///
+    /// Deliberately cannot throw. Every way the CLI can fail — not installed,
+    /// signed out, wording changed, wedged and killed — is a reason to ask the
+    /// endpoint instead, not a reason to fail the refresh. The endpoint's
+    /// errors are also the ones `UsageStore` knows how to word, and a status
+    /// invented here would be a second vocabulary saying the same things.
+    private func cliWindows() async -> [LimitWindow]? {
+        guard let cli else { return nil }
+        let now = Date()
+
+        // A cached answer is only reused inside the interval. Past it the
+        // reading is stale, and handing it back as `.ok` would be claiming a
+        // freshness it does not have.
+        if let last = lastCLIWindows, now.timeIntervalSince(last.at) < cliRefreshInterval {
+            return last.windows
+        }
+        if let lastCLIAttempt, now.timeIntervalSince(lastCLIAttempt) < cliRefreshInterval {
+            return nil
+        }
+        lastCLIAttempt = now
+
+        do {
+            let windows = try await cli.read(profile: profile, now: now)
+            lastCLIWindows = (windows, now)
+            Log.usage.debug("\(self.id, privacy: .public): read \(windows.count) windows from claude /usage")
+            return windows
+        } catch {
+            Log.usage.debug("\(self.id, privacy: .public): claude /usage did not answer, falling back to the token")
+            return nil
         }
     }
 
@@ -194,24 +268,42 @@ actor ClaudeOAuthProvider: UsageProvider {
         return max(0, date.timeIntervalSinceNow)
     }
 
-    /// Read straight from the keychain item rather than from the cached token,
-    /// so the settings row reflects what the next fetch will actually use.
     nonisolated var signInRoute: SignInRoute {
         // Names the command for a profile, because that is the only way to
         // reach it: plain `claude` signs the default one in, not this.
-        .guidance("Run `\(profile.signInCommand)` once — it signs in and refreshes "
-                  + "the token this reads. Use /login there to change account.")
+        .guidance("Run `\(profile.signInCommand)` once — it signs in and is what "
+                  + "these readings come from. Use /login there to change account.")
     }
 
     nonisolated func forgetCachedCredential() { keychain.forgetCached() }
 
     nonisolated func account() -> ProviderAccount? {
+        let manageURL = URL(string: "https://claude.ai/settings/usage")
+
+        // Settings must not be the thing that raises a keychain prompt. Where
+        // the CLI can answer, the readings never touch the token, and opening
+        // Settings to see whose account a ring is for would have been the one
+        // thing that did — the exact interruption this provider now avoids.
+        //
+        // The trade is the plan name for the address, and the address is the
+        // more useful half: it says *which* account, which is the only question
+        // two Claude rings ever raise, and the token could never answer it.
+        if cli != nil {
+            guard let address = profile.signedInAddress() else { return nil }
+            return ProviderAccount(
+                label: address,
+                plan: nil,   // Claude Code's own config does not name the plan
+                source: profile.sourceName,
+                manageURL: manageURL
+            )
+        }
+
         guard let credentials = try? keychain.load() else { return nil }
         return ProviderAccount(
-            label: nil,   // the credential carries no address
+            label: profile.signedInAddress(),
             plan: credentials.subscriptionType,
             source: profile.sourceName,
-            manageURL: URL(string: "https://claude.ai/settings/usage")
+            manageURL: manageURL
         )
     }
 
@@ -301,7 +393,9 @@ struct UsageResponse: Decodable {
     }
 
     /// Session first, then the weekly windows — the order the frame shows.
-    private static func displayOrder(_ a: LimitWindow, _ b: LimitWindow) -> Bool {
+    /// Shared with `ClaudeUsageCLI`, which reads the same windows off the CLI
+    /// and must hand them over in the same order.
+    static func displayOrder(_ a: LimitWindow, _ b: LimitWindow) -> Bool {
         func rank(_ id: String) -> Int {
             if id == "session" { return 0 }
             if id == "weekly_all" { return 1 }
