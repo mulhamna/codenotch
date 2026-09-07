@@ -14,7 +14,7 @@ two never disagree.
 
 | Provider | Source | How |
 |---|---|---|
-| **Claude Code** | official | The OAuth token in the login keychain, against the same endpoint Claude Code's own `/usage` uses. |
+| **Claude Code** | official | Claude Code's own `/usage`, asked of the installed `claude`. Falls back to the OAuth token in the login keychain, against the endpoint that command uses, when Claude Code isn't installed. |
 | **Cursor** | official | The editor's own signed-in session, read from its local SQLite state — no separate sign-in. |
 | **Codex** | official | ChatGPT's usage endpoint, using the local Codex sign-in. Shows the 5-hour and weekly limits when available. |
 | **Antigravity** | official where licensed, otherwise a request count | Antigravity's local language server first, then Google's quota endpoint; a plain count when neither will answer for the account. |
@@ -105,12 +105,16 @@ those can change without notice. Every adapter's response shape is pinned by
 tests, and every failure degrades to a visible status (`stale`, `needsAuth`,
 `error`) rather than an invented number.
 
-**Keychain:** the app is signed with a stable Developer ID identity so the
-one-time "Always Allow" grant on Claude Code's and Antigravity's keychain
-items survives rebuilds. The secret itself is read only when the owning app
-has actually changed it — checked via the item's modification date, which
-isn't behind the same access prompt as the credential — so a valid grant does
-not mean a prompt on every poll.
+**Keychain:** Claude's readings do not use it where Claude Code is installed.
+Claude Code files a *new* keychain item on every token rotation, and the new
+item's access list does not carry this app, so an "Always Allow" granted
+against the old one stops working about an hour later — asking `claude` itself
+avoids the question entirely. Where the keychain is still the source (no
+Claude Code on the machine, or Antigravity), the app is signed with a stable
+Developer ID identity so a grant survives rebuilds, and the secret is read
+only when the owning app has actually changed it — checked via the item's
+modification date, which isn't behind the same access prompt as the
+credential — so a valid grant does not mean a prompt on every poll.
 
 **Rate limits:** Claude's endpoint returns 429 if polled too hard, with an
 unhelpful `Retry-After: 0`. The back-off treats that as a floor-raiser only —
