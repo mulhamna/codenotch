@@ -21,6 +21,16 @@ struct AntigravityCredentials {
 
     static func forgetCached() { cache.forget() }
 
+    /// Whatever a previous fetch already read, without asking macOS again.
+    static var held: AntigravityCredentials? { cache.held }
+
+    /// Whether Antigravity has filed a credential at all, judged from the
+    /// item's attributes rather than its contents — those are not behind the
+    /// access prompt the secret is, so this can be asked freely.
+    static func isSignedIn() -> Bool {
+        KeychainItem.modifiedAt(service: service, account: account) != nil
+    }
+
     /// Antigravity stores through Go's `keyring` package, which base64-encodes
     /// the payload behind this marker rather than writing raw JSON the way
     /// Claude Code does. Decoding it is not optional: without stripping the

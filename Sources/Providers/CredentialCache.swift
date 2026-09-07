@@ -118,6 +118,17 @@ final class CredentialCache<Credential>: @unchecked Sendable {
         }
     }
 
+    /// What is already in hand, and nothing more.
+    ///
+    /// For a caller that would like the credential's details but must not be
+    /// the reason a dialogue appears. The settings row is exactly that: it is
+    /// rebuilt every time the window renders, and it has no business asking
+    /// macOS for a secret in order to print a plan name.
+    var held: Credential? {
+        lock.lock(); defer { lock.unlock() }
+        return stored
+    }
+
     /// Drop what is held, so the next read goes to the keychain for real.
     ///
     /// Called when the server rejects the credential — that is the one signal
