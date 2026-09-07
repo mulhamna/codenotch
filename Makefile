@@ -73,7 +73,7 @@ APP_NAME    := Codenotch
 NOTARY_PROFILE := UsageNotch
 DMG := $(RELEASE_DIR)/$(APP_NAME).dmg
 
-.PHONY: archive dmg notarize release verify-release
+.PHONY: archive dmg notarize release verify-release publish
 
 # Release configuration, exported with the Developer ID identity. `xcodebuild
 # archive` + `-exportArchive` rather than a plain build: it re-signs the bundle
@@ -156,6 +156,25 @@ appcast: $(DMG)
 
 release: notarize verify-release appcast
 	@echo "Notarized: $(DMG)"
+
+# The GitHub release page is where someone who has never installed the app
+# looks first; the appcast feed is only ever read by copies already running.
+# The same notarized dmg belongs in both, and until it was in both the release
+# pages carried no assets at all — leaving a full Xcode install as the only way
+# to try the app.
+#
+# Deliberately not part of `release`: every other target here is local, and
+# this one writes to the remote. Run it once `make release` has finished and
+# the tag exists.
+VERSION := $(shell awk -F'"' '/MARKETING_VERSION:/ {print $$2}' project.yml)
+TAG     ?= v$(VERSION)
+
+publish: $(DMG)
+	@test -n "$(VERSION)" || (echo "No MARKETING_VERSION in project.yml" && exit 1)
+	@# --clobber so re-running after a rebuild replaces the asset instead of
+	@# failing on the name already being taken.
+	gh release upload $(TAG) $(DMG) --clobber
+	@echo "Attached $(DMG) to $(TAG)."
 
 # What Gatekeeper on a customer's Mac will check. `spctl` accepting the app is
 # the actual proof that the download will open without a right-click.
