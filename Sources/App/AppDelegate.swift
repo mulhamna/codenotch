@@ -652,7 +652,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             SessionChime.play(preferences.usageResetSoundName)
         }
         guard preferences.announceUsageReset else { return }
-        fleet.showResetAlert(event, duration: 5.0)
+        if !fleet.showResetAlert(event, duration: 5.0) {
+            UsageAlertNotifications.deliver(event)
+        }
     }
 
     @MainActor
@@ -695,7 +697,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if preferences.limitReachedSound {
             SessionChime.play(preferences.limitReachedSoundName)
         }
-        fleet.showResetAlert(event, duration: 6.0)
+        if !fleet.showResetAlert(event, duration: 6.0) {
+            UsageAlertNotifications.deliver(event)
+        }
     }
 
     @MainActor

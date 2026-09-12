@@ -983,10 +983,14 @@ final class NotchWindowController {
     }
 
     /// Open the notch and show a usage reset notification modal card.
-    func showResetAlert(_ event: UsageResetEvent, duration: TimeInterval = 5.0) {
+    ///
+    /// Returns whether the card was actually shown: a hidden notch has nowhere
+    /// to put it, and the caller owes the user another way of hearing about it.
+    @discardableResult
+    func showResetAlert(_ event: UsageResetEvent, duration: TimeInterval = 5.0) -> Bool {
         guard visibility != .hidden, let panel else {
             Log.usage.debug("reset alert skipped: notch hidden")
-            return
+            return false
         }
         model.activeResetAlert = event
         peek(for: duration, focusing: nil)
@@ -1002,6 +1006,7 @@ final class NotchWindowController {
                 }
             }
         }
+        return true
     }
 
     /// How long after a peek folds a click still counts as answering it. Covers

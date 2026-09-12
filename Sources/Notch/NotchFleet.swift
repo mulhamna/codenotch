@@ -254,10 +254,15 @@ final class NotchFleet {
     }
 
     /// Shows a usage reset notification modal on every panel.
-    func showResetAlert(_ event: UsageResetEvent, duration: TimeInterval = 5.0) {
+    /// Returns whether at least one notch had somewhere to show the card. With
+    /// every notch hidden the alert would otherwise vanish without a trace.
+    @discardableResult
+    func showResetAlert(_ event: UsageResetEvent, duration: TimeInterval = 5.0) -> Bool {
+        var shown = false
         for controller in controllers.values {
-            controller.showResetAlert(event, duration: duration)
+            shown = controller.showResetAlert(event, duration: duration) || shown
         }
+        return shown
     }
 
     func setRefreshing(_ ids: Set<String>) {
