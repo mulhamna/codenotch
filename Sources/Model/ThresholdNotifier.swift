@@ -121,8 +121,10 @@ enum UsageAlertNotifications {
             // Same threading as the crossing alerts: one pile per provider.
             content.threadIdentifier = event.providerID
 
+            // The kind rather than the window label: the label is display text
+            // and changes with the language, and an identifier should not.
             let request = UNNotificationRequest(
-                identifier: "\(event.providerID).\(event.windowLabel).\(Int(Date().timeIntervalSince1970))",
+                identifier: "\(event.providerID).\(event.kind).\(Int(Date().timeIntervalSince1970))",
                 content: content, trigger: nil)
             center.add(request)
         }
