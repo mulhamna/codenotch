@@ -401,10 +401,29 @@ final class ClaudeOAuthProviderTests: XCTestCase {
             [.modificationDate: Date().addingTimeInterval(-age)], ofItemAtPath: file.path)
     }
 
-    private static let cliUsage = """
-    Current session: 38% used · resets Sep 7 at 2:59pm (Asia/Jakarta)
-    Current week (all models): 4% used · resets Sep 14 at 5:59am (Asia/Jakarta)
-    """
+    /// A reading of two windows that are both still running.
+    ///
+    /// Dated from the clock rather than pinned, because a reading whose window
+    /// has already rolled over is deliberately *not* reused — that is what
+    /// stops a reset from staying hidden behind a cached number — and a fixed
+    /// date would quietly turn these into tests of that instead.
+    private static var cliUsage: String {
+        let now = Date()
+        return """
+        Current session: 38% used · resets \(jakarta(now.addingTimeInterval(3 * 3600))) (Asia/Jakarta)
+        Current week (all models): 4% used · resets \(jakarta(now.addingTimeInterval(6 * 86_400))) (Asia/Jakarta)
+        """
+    }
+
+    /// The wording `claude "/usage"` prints, in the zone the line names.
+    private static func jakarta(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(identifier: "Asia/Jakarta")
+        formatter.dateFormat = "MMM d 'at' h:mma"
+        return formatter.string(from: date).replacingOccurrences(of: "AM", with: "am")
+            .replacingOccurrences(of: "PM", with: "pm")
+    }
 
     private static func cli(answering text: String) -> ClaudeUsageCLI {
         cli { text }
@@ -650,5 +669,44 @@ extension ClaudeKeychainPromptTests {
         clock.now = clock.now.addingTimeInterval(ClaudeKeychain.promptWindow + 1)
         _ = try k.load()
         XCTAssertEqual(interactive, [false])
+    }
+}
+
+/// A cached reading can be minutes old and still be wrong in the one way that
+/// matters: the window it describes has already rolled over. Claude Desktop's
+/// entry is considered live for half an hour, which is long enough to hide a
+/// reset completely.
+final class ClaudeExpiredWindowTests: XCTestCase {
+    private func window(resetsAt: Date?) -> LimitWindow {
+        LimitWindow(id: "session", label: "5-hour limit", usedFraction: 0.8, resetsAt: resetsAt)
+    }
+
+    func testAWindowPastItsResetIsExpired() {
+        let now = Date()
+        XCTAssertTrue(ClaudeOAuthProvider.hasExpiredWindow(
+            [window(resetsAt: now.addingTimeInterval(-1))], at: now))
+    }
+
+    func testAWindowStillRunningIsNotExpired() {
+        let now = Date()
+        XCTAssertFalse(ClaudeOAuthProvider.hasExpiredWindow(
+            [window(resetsAt: now.addingTimeInterval(60))], at: now))
+    }
+
+    /// Plenty of providers never say when the window turns over. Silence is not
+    /// a reason to throw the reading away.
+    func testAWindowWithoutAResetTimeIsNotExpired() {
+        XCTAssertFalse(ClaudeOAuthProvider.hasExpiredWindow([window(resetsAt: nil)], at: Date()))
+        XCTAssertFalse(ClaudeOAuthProvider.hasExpiredWindow([], at: Date()))
+    }
+
+    /// One stale window is enough: the reading is written in one pass, so a
+    /// rolled-over session window dates the weekly one beside it too.
+    func testOneExpiredWindowDatesTheWholeReading() {
+        let now = Date()
+        XCTAssertTrue(ClaudeOAuthProvider.hasExpiredWindow([
+            window(resetsAt: now.addingTimeInterval(86_400)),
+            window(resetsAt: now.addingTimeInterval(-30))
+        ], at: now))
     }
 }

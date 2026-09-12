@@ -263,9 +263,27 @@ actor ClaudeOAuthProvider: UsageProvider {
             Log.usage.debug("\(self.id, privacy: .public): claude desktop snapshot is too old to show as live")
             return nil
         }
+        // Inside the freshness window but describing a period that has already
+        // ended. Desktop can hold such an entry for half an hour, which is long
+        // enough to hide a reset entirely.
+        guard !Self.hasExpiredWindow(reading.windows, at: now) else {
+            lastDesktopMiss = now
+            Log.usage.debug("\(self.id, privacy: .public): claude desktop snapshot describes a window that has already reset")
+            return nil
+        }
         lastDesktopMiss = nil
         Log.usage.debug("\(self.id, privacy: .public): read \(reading.windows.count) windows from the claude desktop cache entry \(reading.entry.lastPathComponent, privacy: .public)")
         return reading.windows
+    }
+
+    /// Whether any window in a reading names a reset time that has already
+    /// passed — which makes the whole reading a description of a period that is
+    /// over, however recently it was written.
+    static func hasExpiredWindow(_ windows: [LimitWindow], at now: Date) -> Bool {
+        windows.contains { window in
+            guard let resetsAt = window.resetsAt else { return false }
+            return resetsAt <= now
+        }
     }
 
     /// What `claude "/usage"` last said, or nil to mean "use the token path".
@@ -282,7 +300,14 @@ actor ClaudeOAuthProvider: UsageProvider {
         // A cached answer is only reused inside the interval. Past it the
         // reading is stale, and handing it back as `.ok` would be claiming a
         // freshness it does not have.
-        if let last = lastCLIWindows, now.timeIntervalSince(last.at) < cliRefreshInterval {
+        //
+        // A reading whose window has already rolled over is stale whatever its
+        // age: it describes a period that is over. Reusing one is what made a
+        // reset show up minutes after it happened, so it drops through to the
+        // live sources instead.
+        if let last = lastCLIWindows,
+           now.timeIntervalSince(last.at) < cliRefreshInterval,
+           !Self.hasExpiredWindow(last.windows, at: now) {
             return last.windows
         }
         if let lastCLIAttempt, now.timeIntervalSince(lastCLIAttempt) < cliRefreshInterval {
