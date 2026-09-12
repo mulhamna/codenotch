@@ -291,7 +291,7 @@ final class UsageStore: ObservableObject {
             isBusy: isBusy(),
             sinceLastAttempt: waited,
             idleInterval: idleRefreshInterval,
-            resetDue: hasWindowRolledOver(since: lastAttempt, at: now)
+            resetDue: Self.hasWindowRolledOver(in: snapshots, since: lastAttempt, at: now)
         ) else { return }
         refreshNow()
     }
@@ -303,7 +303,10 @@ final class UsageStore: ObservableObject {
     /// interval there is what made the alert arrive minutes late. It fires once
     /// per rollover: the refresh it asks for puts `lastAttempt` past the
     /// boundary, so the next tick no longer sees it.
-    private func hasWindowRolledOver(since last: Date?, at now: Date) -> Bool {
+    ///
+    /// Pure, for the reason `shouldRefresh` is: the boundary it looks for is a
+    /// date, and a test of it should not need a store or a clock.
+    static func hasWindowRolledOver(in snapshots: [ProviderSnapshot], since last: Date?, at now: Date) -> Bool {
         guard let last else { return false }
         return snapshots.contains { snapshot in
             snapshot.windows.contains { window in
