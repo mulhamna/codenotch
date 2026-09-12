@@ -19,6 +19,37 @@ final class CatalogCoverageTests: XCTestCase {
         )
     }
 
+    func testRussianCoreCopyIsTranslated() throws {
+        let catalog = try loadCatalog().json
+        let expected = [
+            "just now": "только что",
+            "Resets in %lld min": "Сброс через %lld мин",
+            "%lld%% Used · %lld%% left": "Использовано %lld%% · осталось %lld%%",
+            "Always show": "Всегда показывать",
+            "Settings…": "Настройки…",
+            "Sign in to %@": "Войти в %@",
+            "%lld%% of its %@ limit used.": "Использовано %lld%% от лимита «%@»."
+        ]
+
+        for (key, value) in expected {
+            XCTAssertEqual(
+                catalog.strings[key]?.localizations?["ru"]?.stringUnit?.value,
+                value,
+                "missing Russian translation for \(key)"
+            )
+        }
+    }
+
+
+    /// There is deliberately no "language X covers every key" test.
+    ///
+    /// The rule at the top of this file is that a missing translation falls
+    /// back to English rather than failing the suite, and no locale here is
+    /// complete: French and Portuguese cover 350 of 470 keys, Japanese 428.
+    /// #141 added one for Russian, which passed only while Russian happened to
+    /// be complete — the next pull request to add a string broke it, and that
+    /// is exactly the CI block the rule exists to prevent.
+
     // MARK: - Loading
 
     /// Repo `Tests/`, so the catalog is `../Sources/Localizable.xcstrings`.
@@ -54,5 +85,6 @@ private struct CatalogLocalization: Decodable {
 }
 
 private struct CatalogStringUnit: Decodable {
+    var state: String?
     var value: String?
 }

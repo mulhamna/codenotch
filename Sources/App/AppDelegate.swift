@@ -241,6 +241,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     preferences?.setOffset(0, for: preferences?.notchEdge ?? .right)
                     fleet?.apply(alongOffset: 0)
                 },
+                quit: { NSApp.terminate(nil) },
                 previewResetAlert: { [weak self] in
                     self?.previewUsageResetAlert()
                 },

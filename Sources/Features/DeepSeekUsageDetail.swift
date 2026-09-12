@@ -39,23 +39,23 @@ struct DeepSeekUsageDetail: View {
                 .frame(height: NotchLayout.hairline)
                 .padding(.top, NotchLayout.blockSpacing)
 
-            SplitRow(leading: "Usage details", trailing: timeZoneText)
+            SplitRow(leading: L10n.t("Usage details"), trailing: timeZoneText)
                 .padding(.top, NotchLayout.blockSpacing)
 
             HStack(spacing: NotchLayout.blockSpacing) {
-                DeepSeekMetric(label: "Tokens", value: UsageFormat.tokens(detail.totalTokens))
-                DeepSeekMetric(label: "Cost", value: moneyText)
-                DeepSeekMetric(label: "Requests", value: "\(detail.totalRequests)")
-                DeepSeekMetric(label: "API keys", value: "\(detail.visibleAPIKeyCount)")
+                DeepSeekMetric(label: L10n.t("Tokens"), value: UsageFormat.tokens(detail.totalTokens))
+                DeepSeekMetric(label: L10n.t("Cost"), value: moneyText)
+                DeepSeekMetric(label: L10n.t("Requests"), value: "\(detail.totalRequests)")
+                DeepSeekMetric(label: L10n.t("API keys"), value: "\(detail.visibleAPIKeyCount)")
             }
             .frame(width: NotchLayout.cardTextWidth)
             .padding(.top, NotchLayout.blockSpacing)
 
-            DeepSeekUsageChart(title: "Daily tokens", values: points.map { Double($0.tokens) }, formatter: {
+            DeepSeekUsageChart(title: L10n.t("Daily tokens"), values: points.map { Double($0.tokens) }, formatter: {
                 UsageFormat.tokens(Int($0))
             })
                 .padding(.top, NotchLayout.blockSpacing)
-            DeepSeekUsageChart(title: "Daily cost", values: points.map { $0.cost }, formatter: {
+            DeepSeekUsageChart(title: L10n.t("Daily cost"), values: points.map { $0.cost }, formatter: {
                 Self.money($0, currency: detail.currency)
             })
             .padding(.top, NotchLayout.usageDetailChartGap)
@@ -110,7 +110,7 @@ private struct DeepSeekUsageChart: View {
             HStack(alignment: .firstTextBaseline) {
                 Text(title).foregroundStyle(Palette.textPrimary)
                 Spacer(minLength: 0)
-                Text("peak \(formatter(values.max() ?? 0))")
+                Text(L10n.t("peak \(formatter(values.max() ?? 0))"))
                     .foregroundStyle(Palette.textSecondary)
                     .lineLimit(1)
             }

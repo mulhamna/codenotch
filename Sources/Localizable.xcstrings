@@ -4,6 +4,12 @@
     "just now": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "только что"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -33,6 +39,12 @@
     "%lld min": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld мин"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -62,6 +74,12 @@
     "%lld hr": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ч"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -91,6 +109,12 @@
     "%lld hr %lld min": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ч %lld мин"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -120,6 +144,12 @@
     "%@ ago": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ назад"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -149,6 +179,12 @@
     "Resetting…": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сброс…"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -178,6 +214,12 @@
     "Resets in %lld min": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сброс через %lld мин"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -230,12 +272,24 @@
             "state": "translated",
             "value": "%@ 重置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сброс: %@"
+          }
         }
       }
     },
     "%lld%% Used · %lld%% left": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовано %lld%% · осталось %lld%%"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -265,6 +319,12 @@
     "1 left": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остался 1"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -294,6 +354,12 @@
     "%lld left": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось %lld"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -323,6 +389,12 @@
     "1 used": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использован 1"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -352,6 +424,12 @@
     "%lld used": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовано %lld"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -381,6 +459,12 @@
     "No reading": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет данных"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -410,6 +494,12 @@
     "%@ until %@": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ до %@"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -439,6 +529,12 @@
     "Sign in to Claude Code to read your usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в Claude Code, чтобы увидеть использование"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -468,6 +564,12 @@
     "Sign in to Claude Code in ~/.claude-%@ to read your usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в Claude Code в ~/.claude-%@, чтобы увидеть использование"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -497,6 +599,12 @@
     "Sign in to Cursor in the editor": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в Cursor в редакторе"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -526,6 +634,12 @@
     "Sign in to Codex to read your usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в Codex, чтобы увидеть использование"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -555,6 +669,12 @@
     "Sign in to Antigravity to read your usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в Antigravity, чтобы увидеть использование"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -607,6 +727,12 @@
             "state": "translated",
             "value": "为某个编程工具配置 GLM Coding Plan 密钥以读取用量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройте ключ GLM Coding Plan в инструменте разработки, чтобы читать использование"
+          }
         }
       }
     },
@@ -636,12 +762,24 @@
             "state": "translated",
             "value": "在 OpenCode 中开通 Go 套餐以读取用量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключите тариф Go в OpenCode, чтобы читать использование"
+          }
         }
       }
     },
     "Sign in to %@ to read your usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в %@, чтобы увидеть использование"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -694,6 +832,12 @@
             "state": "translated",
             "value": "Codenotch 未能读取 %@ 已保存的登录信息。点击这个圆环再试一次，并选择「始终允许」。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch не получил доступ к сохранённому входу %@. Нажмите это кольцо, повторите запрос и выберите «Разрешать всегда»."
+          }
         }
       }
     },
@@ -723,12 +867,24 @@
             "state": "translated",
             "value": "无法读取用量 — %@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать использование — %@"
+          }
         }
       }
     },
     "Waiting for the first reading…": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидание первых данных…"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -758,6 +914,12 @@
     "Current session": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текущая сессия"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -787,6 +949,12 @@
     "All models": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все модели"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -839,6 +1007,12 @@
             "state": "translated",
             "value": "Opus"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opus"
+          }
         }
       }
     },
@@ -868,12 +1042,24 @@
             "state": "translated",
             "value": "Sonnet"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonnet"
+          }
         }
       }
     },
     "Included usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включённый объём"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -903,6 +1089,12 @@
     "API usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование API"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -932,6 +1124,12 @@
     "On demand": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По запросу"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -961,6 +1159,12 @@
     "5h limit": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит на 5 ч"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -990,6 +1194,12 @@
     "Weekly limit": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недельный лимит"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1019,6 +1229,12 @@
     "Monthly limit": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месячный лимит"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1048,6 +1264,12 @@
     "Daily quota": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суточная квота"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1077,6 +1299,12 @@
     "Longer window": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Более длинное окно"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1106,6 +1334,12 @@
     "%lldm limit": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит на %lld мин"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1135,6 +1369,12 @@
     "%lldh limit": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит на %lld ч"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1164,6 +1404,12 @@
     "%lldd limit": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит на %lld дн"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1193,6 +1439,12 @@
     "Weekly": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недельный"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1222,6 +1474,12 @@
     "MCP (1 month)": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCP (1 месяц)"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1251,6 +1509,12 @@
     "Usage (%lld h)": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование (%lld ч)"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1280,6 +1544,12 @@
     "Usage (%lld wk)": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование (%lld нед.)"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1309,6 +1579,12 @@
     "Usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1338,6 +1614,12 @@
     "Pro searches": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиски Pro"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1367,6 +1649,12 @@
     "Research": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исследования"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1396,6 +1684,12 @@
     "Agentic research": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агентные исследования"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1448,12 +1742,24 @@
             "state": "translated",
             "value": "Labs"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Labs"
+          }
         }
       }
     },
     "Free queries": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бесплатные запросы"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1483,6 +1789,12 @@
     "Requests today · no limit published": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запросы сегодня · лимит не указан"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1512,6 +1824,12 @@
     "no requests today": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сегодня запросов нет"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1541,6 +1859,12 @@
     "~%lld request today": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сегодня ~%lld запрос"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1570,6 +1894,12 @@
     "~%lld requests today": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сегодня ~%lld запросов"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1599,6 +1929,12 @@
     "Grok Build": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grok Build"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1628,6 +1964,12 @@
     "%@ Usage": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование %@"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1657,6 +1999,12 @@
     "and %lld more": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "и ещё %lld"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1686,6 +2034,12 @@
     "working": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "работает"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1715,6 +2069,12 @@
     "waiting": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ожидает"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1744,6 +2104,12 @@
     "idle": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бездействует"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1773,6 +2139,12 @@
     "Working": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Работа"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1802,6 +2174,12 @@
     "Desktop": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рабочий стол"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1854,12 +2232,24 @@
             "state": "translated",
             "value": "VS Code"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VS Code"
+          }
         }
       }
     },
     "Agent": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агент"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1889,6 +2279,12 @@
     "Terminal": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Терминал"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1918,6 +2314,12 @@
     "Untitled chat": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чат без названия"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1947,6 +2349,12 @@
     "Always show": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всегда показывать"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -1976,6 +2384,12 @@
     "Show on hover": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывать при наведении"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2005,6 +2419,12 @@
     "Hide": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2034,6 +2454,12 @@
     "The notch stays open with every reading visible.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выемка остаётся открытой, и все данные видны."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2063,6 +2489,12 @@
     "A small pill at the screen edge that opens when you reach it.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Небольшая панель у края экрана, которая открывается при наведении."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2092,6 +2524,12 @@
     "Nothing on screen. Open Codenotch again from Applications to bring these settings back.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ничего не показывать. Откройте Codenotch снова из Программ, чтобы вернуть эти настройки."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2121,6 +2559,12 @@
     "Dock": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2150,6 +2594,12 @@
     "Menu bar": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Строка меню"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2179,6 +2629,12 @@
     "Neither": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни то ни другое"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2208,6 +2664,12 @@
     "A normal app icon in the Dock while Codenotch is running.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычный значок приложения в Dock во время работы Codenotch."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2237,6 +2699,12 @@
     "A small icon in the menu bar instead, and nothing in the Dock.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Небольшой значок в строке меню вместо значка в Dock."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2266,6 +2734,12 @@
     "No icon anywhere. Open Codenotch again from Applications to bring these settings back.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни одного значка. Откройте Codenotch снова из Программ, чтобы вернуть эти настройки."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2295,6 +2769,12 @@
     "Right": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Справа"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2324,6 +2804,12 @@
     "Left": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слева"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2353,6 +2839,12 @@
     "Top": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверху"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2382,6 +2874,12 @@
     "Bottom": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снизу"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2434,6 +2932,12 @@
             "state": "translated",
             "value": "沿右边缘，避开那一侧的程序坞。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вдоль правого края, не занимая место у Dock."
+          }
         }
       }
     },
@@ -2462,6 +2966,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "沿左边缘，避开那一侧的程序坞。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вдоль левого края, не занимая место у Dock."
           }
         }
       }
@@ -2492,6 +3002,12 @@
             "state": "translated",
             "value": "顶部一条横栏，读数并排。有硬件刘海的 Mac 上会贴上去，看起来像同一块。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Широкая панель сверху с показаниями рядом. На Mac с аппаратной выемкой она примыкает к ней, образуя единую форму."
+          }
         }
       }
     },
@@ -2521,12 +3037,24 @@
             "state": "translated",
             "value": "一条横栏压在程序坞上方，读数并排。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Широкая панель над Dock с показаниями рядом."
+          }
         }
       }
     },
     "Integrations": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интеграции"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2556,6 +3084,12 @@
     "Appearance": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Внешний вид"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2585,6 +3119,12 @@
     "General": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Общие"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2614,6 +3154,12 @@
     "Show": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывать"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2643,6 +3189,12 @@
     "Edge": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Край"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2672,6 +3224,12 @@
     "App icon": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Значок приложения"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2701,6 +3259,12 @@
     "Open Codenotch at login": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открывать Codenotch при входе"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2730,6 +3294,12 @@
     "Install updates automatically": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Устанавливать обновления автоматически"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2759,6 +3329,12 @@
     "Check now": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверить сейчас"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2788,6 +3364,12 @@
     "App designed and developed by": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложение разработал"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2817,6 +3399,12 @@
     "Connect an assistant to get started": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключите ассистента, чтобы начать"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -2869,6 +3457,12 @@
             "state": "translated",
             "value": "Codenotch 从不自己登录 — 每条读数都借自已经持有该账号的工具。在这里退出只会停止读取凭证并忘掉数字，你在那个工具里仍然是登录状态。macOS 每种工具第一次会问一次，换账号再登录时还会再问；选「始终允许」就不会再打扰。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch не выполняет вход — каждое показание берётся из уже авторизованного инструмента. Выход здесь прекращает чтение учётных данных и удаляет числа, но не выполняет выход из инструмента. macOS спрашивает разрешение один раз для каждого инструмента и при смене аккаунта; «Разрешать всегда» отключает повторные запросы."
+          }
         }
       }
     },
@@ -2897,6 +3491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codenotch 读取这台 Mac 上已经登录的工具的用量 — 从不问你的密码。安装并登录 Claude Code（终端工具，不是 Claude 应用）、Cursor、Codex、Antigravity、GLM、Grok 或 OpenCode 中的任意一个，刘海里就会出现对应的圆环。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch читает использование из инструментов, уже авторизованных на этом Mac, и никогда не спрашивает пароль. Установите и авторизуйтесь в Claude Code (терминальном инструменте, не приложении Claude), Cursor, Codex, Antigravity, GLM, Grok или OpenCode — и кольцо появится на панели."
           }
         }
       }
@@ -2927,6 +3527,12 @@
             "state": "translated",
             "value": "macOS 会询问一次，是否允许读取 Claude Code 和 Antigravity 已保存的登录信息。请选「始终允许」— 只选「允许」的话，每次都会再问。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS один раз запросит доступ к сохранённым входам Claude Code и Antigravity. Выберите «Разрешать всегда» — обычное «Разрешить» приводит к повторному запросу."
+          }
         }
       }
     },
@@ -2955,6 +3561,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "版本 %@。更新在后台安装，下次启动 Codenotch 时生效。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия %@. Обновления устанавливаются в фоне и применяются при следующем запуске Codenotch."
           }
         }
       }
@@ -2985,6 +3597,12 @@
             "state": "translated",
             "value": "已退出 — 不再读取，也不再保存读数。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выход выполнен — данные не читаются и не сохраняются."
+          }
         }
       }
     },
@@ -3013,6 +3631,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "允许访问…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешить доступ…"
           }
         }
       }
@@ -3043,6 +3667,12 @@
             "state": "translated",
             "value": "切换…"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключить…"
+          }
         }
       }
     },
@@ -3071,6 +3701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "再次向 macOS 请求 %@ 已保存的登录信息。选「始终允许」就不会再问。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторно запрашивает у macOS сохранённый вход %@. Выберите «Разрешать всегда», чтобы больше не видеть этот запрос."
           }
         }
       }
@@ -3101,6 +3737,12 @@
             "state": "translated",
             "value": "关闭后停止读取 %@ 并忘掉它的读数。%@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключите, чтобы прекратить чтение %@ и удалить его показания. %@"
+          }
         }
       }
     },
@@ -3129,6 +3771,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开以重新登录并读取 %@。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включите, чтобы снова войти и читать %@."
           }
         }
       }
@@ -3159,6 +3807,12 @@
             "state": "translated",
             "value": "macOS 不让 Codenotch 读取 %@ 已保存的登录信息。点上面的「允许访问…」，然后选「始终允许」。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS не разрешает Codenotch читать сохранённый вход %@. Выберите выше «Разрешить доступ…», затем «Разрешать всегда»."
+          }
         }
       }
     },
@@ -3187,6 +3841,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开 %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть %@"
           }
         }
       }
@@ -3217,6 +3877,12 @@
             "state": "translated",
             "value": "打开 %@，这个账号就是在那里登录的。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открывает %@, где выполнен вход в этот аккаунт."
+          }
         }
       }
     },
@@ -3245,6 +3911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在浏览器打开 %@。那个网站有自己的登录，和这里读取的凭证不是一回事。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открывает %@ в браузере. На этом сайте используется отдельный вход, не связанный с читаемыми здесь данными."
           }
         }
       }
@@ -3275,6 +3947,12 @@
             "state": "translated",
             "value": "Codenotch 设置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки Codenotch"
+          }
         }
       }
     },
@@ -3303,6 +3981,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "新变化"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что нового"
           }
         }
       }
@@ -3333,6 +4017,12 @@
             "state": "translated",
             "value": "Codenotch 新变化"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что нового в Codenotch"
+          }
         }
       }
     },
@@ -3361,6 +4051,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "版本 %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия %@"
           }
         }
       }
@@ -3391,6 +4087,12 @@
             "state": "translated",
             "value": "继续"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить"
+          }
         }
       }
     },
@@ -3419,6 +4121,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "macOS 拒绝了 — 试着把 Codenotch 移到「应用程序」。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS отказала — попробуйте переместить Codenotch в /Applications."
           }
         }
       }
@@ -3449,12 +4157,24 @@
             "state": "translated",
             "value": "来自 %@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "через %@"
+          }
         }
       }
     },
     "Sign in to %@": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войти в %@"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3484,6 +4204,12 @@
     "Sign in to %@ to read this account.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в %@, чтобы использовать этот аккаунт."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3513,6 +4239,12 @@
     "Sign in with %@ to read this account.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите через %@, чтобы использовать этот аккаунт."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3542,6 +4274,12 @@
     "Sign out in the %@ window to use another account.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выйдите из аккаунта в окне %@, чтобы использовать другой."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3571,6 +4309,12 @@
     "Switch accounts in %@; the notch follows.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Смените аккаунт в %@ — выемка обновится."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3600,6 +4344,12 @@
     "Switch accounts in the tool that owns it; the notch follows.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Смените аккаунт в приложении, которому он принадлежит — выемка обновится."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3629,6 +4379,12 @@
     "Signs out of %@ — the session belongs to Codenotch.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выход из %@ — сессия принадлежит Codenotch."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3658,6 +4414,12 @@
     "You stay signed in to %@ — end that session in %@ itself.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы останетесь вошли в %@ — завершите сессию непосредственно в %@."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3710,12 +4472,24 @@
             "state": "translated",
             "value": "你在持有该账号的工具里仍然是登录状态。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход в инструмент, которому принадлежит аккаунт, сохраняется."
+          }
         }
       }
     },
     "Sign in with the tool that owns this account.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите через приложение, которому принадлежит этот аккаунт."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3745,6 +4519,12 @@
     "Sign in to %@…": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войти в %@…"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3797,6 +4577,12 @@
             "state": "translated",
             "value": "运行 grok login — 它会登录并刷新这里读取的令牌。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запустите grok login — команда выполнит вход и обновит читаемый токен."
+          }
         }
       }
     },
@@ -3825,6 +4611,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用量走的是 OpenCode 登录时保存的 opencode-go 密钥 — 在 OpenCode 里接通 Go（`opencode auth login`），刘海就会读到。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование берётся из ключа opencode-go, который OpenCode сохраняет при входе — подключите Go в OpenCode (`opencode auth login`), и панель начнёт его читать."
           }
         }
       }
@@ -3855,6 +4647,12 @@
             "state": "translated",
             "value": "用量走的是某个编程工具里的 Z.ai GLM Coding Plan 密钥 — Claude Code 的 settings.json、ZCode 或 OpenCode。在那边配好，刘海就会读到。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование берётся из ключа Z.ai GLM Coding Plan, который хранит инструмент разработки — settings.json Claude Code, ZCode или OpenCode. Настройте ключ там, и панель начнёт его читать."
+          }
         }
       }
     },
@@ -3884,12 +4682,24 @@
             "state": "translated",
             "value": "先运行一次 `%@` — 它会登录并刷新这里读取的令牌。要换账号，在那里用 /login。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз запустите `%@` — команда выполнит вход и обновит читаемый токен. Для смены аккаунта используйте там /login."
+          }
         }
       }
     },
     "Unlimited on the %@ plan — nothing to meter": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тариф %@ без ограничений — нечего измерять"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -3942,6 +4752,12 @@
             "state": "translated",
             "value": "%@ 套餐目前还没有可供 Cursor 计量的额度"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В тарифе %@ пока нечего измерять для Cursor"
+          }
         }
       }
     },
@@ -3970,6 +4786,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codex 没有返回任何用量窗口"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex не сообщил ни одного окна использования"
           }
         }
       }
@@ -4000,6 +4822,12 @@
             "state": "translated",
             "value": "这个密钥上没有 OpenCode Go 订阅"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для этого ключа нет подписки OpenCode Go"
+          }
         }
       }
     },
@@ -4029,12 +4857,24 @@
             "state": "translated",
             "value": "这个 Grok 账号目前没有可计量的额度"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для этого аккаунта Grok пока нет измеряемого использования"
+          }
         }
       }
     },
     "Settings…": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки…"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4064,6 +4904,12 @@
     "Quit Codenotch": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выйти из Codenotch"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4093,6 +4939,12 @@
     "Keep open": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставить открытым"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4122,6 +4974,12 @@
     "Refresh now": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обновить сейчас"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4174,12 +5032,24 @@
             "state": "translated",
             "value": "Codenotch 已设为「始终显示」。请在设置里更改。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для Codenotch включён режим «Показывать всегда». Измените его в настройках."
+          }
         }
       }
     },
     "Checking…": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверка…"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4209,6 +5079,12 @@
     "Codenotch is up to date.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch обновлён."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4238,6 +5114,12 @@
     "Version %@ is available and will install shortly.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступна версия %@; она скоро установится."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -4290,6 +5172,12 @@
             "state": "translated",
             "value": "连不上更新服务器。Codenotch 会自己再试 — 这份安装没有问题。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось связаться с сервером обновлений. Codenotch повторит попытку автоматически — с этой копией всё в порядке."
+          }
         }
       }
     },
@@ -4318,6 +5206,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "又多了两个服务，以及一个被悄悄丢掉的真实账号套餐。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Два новых провайдера и восстановленный аккаунт с активным тарифом."
           }
         }
       }
@@ -4348,6 +5242,12 @@
             "state": "translated",
             "value": "Grok 成了新的圆环"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grok — новое кольцо"
+          }
         }
       }
     },
@@ -4376,6 +5276,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "SuperGrok 的每周 Grok Build 额度，读取 CLI 所用的同一个计费接口，会话来自 ~/.grok/auth.json。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недельный лимит Grok Build в SuperGrok, читаемый из того же платёжного API, что использует CLI, с сессией из ~/.grok/auth.json."
           }
         }
       }
@@ -4406,6 +5312,12 @@
             "state": "translated",
             "value": "OpenCode 的 Go 套餐成了新的圆环"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тариф Go в OpenCode — новое кольцо"
+          }
         }
       }
     },
@@ -4434,6 +5346,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用 OpenCode 登录时自己存下的密钥读取 Go 套餐官方用量接口 — 不用再登一次。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Читает официальный API использования тарифа Go с ключом, который OpenCode сохраняет при входе — второй вход не нужен."
           }
         }
       }
@@ -4464,6 +5382,12 @@
             "state": "translated",
             "value": "一个真实的 Codex 账号变成了未计量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настоящий аккаунт Codex перестал считаться"
+          }
         }
       }
     },
@@ -4492,6 +5416,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codex 的实时读数只认 5 小时和 7 天窗口。免费套餐账号真正的额度是 30 天，被悄悄漏掉，一个确实在计量的账号显示成没有可计量的额度。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Актуальное чтение Codex распознавало только окна на 5 часов и 7 дней. У бесплатного аккаунта настоящим был лимит на 30 дней, который незаметно пропускался, поэтому отслеживаемый аккаунт показывался без измеряемого использования."
           }
         }
       }
@@ -4522,6 +5452,12 @@
             "state": "translated",
             "value": "关掉某个服务现在真的会停掉"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключение провайдера теперь действительно останавливает его"
+          }
         }
       }
     },
@@ -4550,6 +5486,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开设置仍可能读取已关闭服务的账号，一次还在路上的回复也可能把你刚让它忘掉的读数加回来。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открытие настроек всё ещё могло читать аккаунт выключенного провайдера, а уже выполнявшийся ответ мог вернуть только что удалённое показание."
           }
         }
       }
@@ -4580,6 +5522,12 @@
             "state": "translated",
             "value": "贡献者可以在没有证书的情况下构建"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сборка для разработчиков работает без сертификата"
+          }
         }
       }
     },
@@ -4608,6 +5556,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "维护者的 Developer ID 不在时，make build 和 make test 会自动签名 — 参与开发不需要 Apple 账号。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "make build и make test теперь автоматически подписывают сборку, если Developer ID сопровождающего отсутствует — аккаунт Apple для работы над проектом не нужен."
           }
         }
       }
@@ -4638,6 +5592,12 @@
             "state": "translated",
             "value": "从睡眠唤醒不再抹掉读数。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выход из сна больше не удаляет показание."
+          }
         }
       }
     },
@@ -4666,6 +5626,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "唤醒 Mac 后圆环还在"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кольцо переживает выход Mac из сна"
           }
         }
       }
@@ -4696,6 +5662,12 @@
             "state": "translated",
             "value": "刚睡醒的一小段时间里 macOS 还不允许钥匙串提示，这被误当成已退出 — 读数被抹掉，屏幕上只剩「正在等待首次读数」。现在会让数字变旧而不是扔掉，并自己恢复。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Короткий период после сна, когда macOS ещё не разрешает запрос к связке ключей, ошибочно считался выходом из аккаунта — показание удалялось и на экране оставалось «ожидание первого показания». Теперь число помечается устаревшим и чтение возобновляется автоматически."
+          }
         }
       }
     },
@@ -4724,6 +5696,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "又多了两个账号，四个社区修复，以及诚实的重复项。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Два новых аккаунта, четыре исправления сообщества и корректная обработка дубликатов."
           }
         }
       }
@@ -4754,6 +5732,12 @@
             "state": "translated",
             "value": "多个 Claude Code 账号"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Несколько аккаунтов Claude Code"
+          }
         }
       }
     },
@@ -4782,6 +5766,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用 CLAUDE_CONFIG_DIR 把工作登录分开？它现在有自己的圆环、自己的额度，以及设置里自己的一行，就在个人账号旁边。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Используете CLAUDE_CONFIG_DIR для рабочего входа? Теперь у него есть отдельное кольцо, лимиты и строка в настройках рядом с личным аккаунтом."
           }
         }
       }
@@ -4812,6 +5802,12 @@
             "state": "translated",
             "value": "加入了 GLM"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавлен GLM"
+          }
         }
       }
     },
@@ -4840,6 +5836,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Z.ai 的 Coding Plan 现在也实时读取，密钥借自已经持有它的那个工具。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тариф Z.ai Coding Plan теперь тоже читается в реальном времени с ключом из уже авторизованного инструмента."
           }
         }
       }
@@ -4870,6 +5872,12 @@
             "state": "translated",
             "value": "卡住的 Claude 圆环会自己恢复"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зависшее кольцо Claude восстанавливается само"
+          }
         }
       }
     },
@@ -4898,6 +5906,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "一次短暂失败 — 多半是 Mac 从睡眠唤醒 — 以前会把圆环锁死直到重启应用。现在下次检查会自己解开。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кратковременная ошибка — чаще всего при выходе Mac из сна — раньше блокировала кольцо до перезапуска приложения. Теперь оно очищается при следующей проверке."
           }
         }
       }
@@ -4928,6 +5942,12 @@
             "state": "translated",
             "value": "Cursor 会话不再把已经结束的工作报成还在进行"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сеансы Cursor перестают сообщать о завершённой работе"
+          }
         }
       }
     },
@@ -4956,6 +5976,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "崩溃或弃掉的对话可能一整天都显示「仍在工作」。现在会发现写入其实已经停了。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "После сбоя или оставленный чат мог считаться «всё ещё работающим» день и дольше. Теперь приложение замечает фактическое завершение работы."
           }
         }
       }
@@ -4986,6 +6012,12 @@
             "state": "translated",
             "value": "几个月前的重复项再也抢不赢"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Старая копия больше не может оказаться главной"
+          }
         }
       }
     },
@@ -5014,6 +6046,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude Code 每次轮换令牌都会写一条新的钥匙串。登录较久的账号可能随机拿到过期的那条，然后永远显示「正在等待首次读数」。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code создаёт новую запись в связке ключей при каждой смене токена. Давно авторизованный аккаунт мог случайно выбрать старую просроченную запись и навсегда показать «ожидание первого показания»."
           }
         }
       }
@@ -5044,6 +6082,12 @@
             "state": "translated",
             "value": "误点不再把刘海钉在展开状态"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Случайный щелчок больше не оставляет панель открытой"
+          }
         }
       }
     },
@@ -5072,6 +6116,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "刘海还没展开时点到屏幕边缘，可能让它卡在打开状态，屏幕上却没有任何解释。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щелчок у края экрана до открытия панели мог оставить её открытой без объяснения на экране."
           }
         }
       }
@@ -5102,6 +6152,12 @@
             "state": "translated",
             "value": "Codex 改为实时读取，「始终显示」会保持打开。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex читается в реальном времени, а «Показывать всегда» сохраняется."
+          }
         }
       }
     },
@@ -5130,6 +6186,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codex 改为实时读取，而不再读日志"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex читается в реальном времени, а не из журнала"
           }
         }
       }
@@ -5160,6 +6222,12 @@
             "state": "translated",
             "value": "数字来自 Codex 在一轮对话里写的文件，所以有多旧取决于你上次用它是什么时候 — 有一次旧了三天。Codenotch 现在直接问 Codex，并与它自己的面板一致。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Число бралась из файла, который Codex записывает во время хода, поэтому могло устареть на несколько дней. Теперь Codenotch спрашивает сам Codex и показывает данные его панели."
+          }
         }
       }
     },
@@ -5188,6 +6256,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codex 圆环会注意到桌面应用"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кольцо Codex видит настольное приложение"
           }
         }
       }
@@ -5218,6 +6292,12 @@
             "state": "translated",
             "value": "以前只盯 CLI 和 VS Code 扩展写的文件，桌面应用里的工作从不会让它转起来。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раньше отслеживались только файлы CLI и расширения VS Code, поэтому работа в настольном приложении не запускала вращение кольца."
+          }
         }
       }
     },
@@ -5246,6 +6326,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "「始终显示」不再自己关掉"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Показывать всегда» больше не выключается само"
           }
         }
       }
@@ -5276,6 +6362,12 @@
             "state": "translated",
             "value": "点击刘海会拨动设置用的同一个开关，一次误点就会悄悄变回悬停时显示。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щелчок по панели менял тот же флаг, что и настройка, поэтому случайный щелчок незаметно возвращал режим показа при наведении."
+          }
         }
       }
     },
@@ -5304,6 +6396,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "钥匙串提示少得多"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гораздо меньше запросов связки ключей"
           }
         }
       }
@@ -5334,6 +6432,12 @@
             "state": "translated",
             "value": "令牌一过期，每次检查都回到钥匙串 — 一分钟弹一次。现在只在所属应用改过密钥时才读，并且不会按定时器重试一次拒绝。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "После истечения токена каждая проверка обращалась к связке ключей и показывала запрос раз в минуту. Теперь секрет читается только после изменения владельцем, а отказ не повторяется по таймеру."
+          }
         }
       }
     },
@@ -5362,6 +6466,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "暂停的额度会显示为暂停"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановленный лимит отображается как приостановленный"
           }
         }
       }
@@ -5392,6 +6502,12 @@
             "state": "translated",
             "value": "有些额度已经用尽，标题却还显示有余量。圆环会显示用完，并说明何时解除。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Некоторые лимиты достигаются, хотя основной показатель ещё показывает запас. Кольцо теперь показывает расход и время снятия ограничения."
+          }
         }
       }
     },
@@ -5420,6 +6536,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "长消息不再被截断"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Длинные сообщения больше не обрезаются"
           }
         }
       }
@@ -5450,6 +6572,12 @@
             "state": "translated",
             "value": "有话要说的提示只给它留了一行，不管它写了多少。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подсказка с пояснением теперь выделяет под него строку независимо от длины текста."
+          }
         }
       }
     },
@@ -5478,6 +6606,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每一个会话，以及一张能放进屏幕的提示卡。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждый сеанс и подсказка, помещающаяся на экране."
           }
         }
       }
@@ -5508,6 +6642,12 @@
             "state": "translated",
             "value": "提示卡不再被截断"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подсказки больше не обрезаются"
+          }
         }
       }
     },
@@ -5536,6 +6676,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "卡片以所属圆环为中心，第一个和最后一个服务会把一半甩出面板 — 掉出去的还是标题。面板现在会给它留位置。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карточка центрируется относительно своего кольца. Раньше у первого и последнего провайдера её половина выходила за край панели вместе с заголовком; теперь место резервируется."
           }
         }
       }
@@ -5566,6 +6712,12 @@
             "state": "translated",
             "value": "屏幕能放下多少会话就显示多少"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Столько сеансов, сколько помещается на экране"
+          }
         }
       }
     },
@@ -5594,6 +6746,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "不论你在跑什么，列表以前最多四条。现在按屏幕算：大屏幕十条，只有真的放不下时才出现「还有 N 个」。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раньше список всегда ограничивался четырьмя пунктами. Теперь он подстраивается под экран: до десяти на большом, а «и ещё N» появляется только при нехватке места."
           }
         }
       }
@@ -5624,6 +6782,12 @@
             "state": "translated",
             "value": "需要你的排在前面"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сначала показываются те, кому вы нужны"
+          }
         }
       }
     },
@@ -5652,6 +6816,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "等待中，然后工作中，然后空闲 — 被收进「还有 N 个」的，是最不要紧的。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сначала ожидание, затем работа и простой — при сокращении списка исчезает наименее важное."
           }
         }
       }
@@ -5682,6 +6852,12 @@
             "state": "translated",
             "value": "Antigravity 的真实数字，以及一个会保持关闭的开关。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настоящие числа Antigravity и переключатель, который не включается обратно."
+          }
         }
       }
     },
@@ -5710,6 +6886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Antigravity 显示真实配额"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Antigravity показывает настоящий лимит"
           }
         }
       }
@@ -5740,6 +6922,12 @@
             "state": "translated",
             "value": "Google 不会直接回答 Codenotch，所以改问 Antigravity 自己的语言服务器 — 也就是 Antigravity 用量面板取数字的地方。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google не отвечает Codenotch напрямую, поэтому приложение спрашивает языковой сервер Antigravity — тот же источник использует панель использования Antigravity."
+          }
         }
       }
     },
@@ -5768,6 +6956,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用量从两头都能读懂"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование читается в обоих направлениях"
           }
         }
       }
@@ -5798,6 +6992,12 @@
             "state": "translated",
             "value": "「12% 已用 · 88% 剩余」，读数能对上供应商碰巧展示的那一端。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Использовано 12% · осталось 88%», поэтому показание совпадает с тем, какую сторону показывает поставщик."
+          }
         }
       }
     },
@@ -5826,6 +7026,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "拒绝钥匙串提示之后还有退路"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возможность повторить отклонённый запрос связки ключей"
           }
         }
       }
@@ -5856,6 +7062,12 @@
             "state": "translated",
             "value": "拒绝不再看起来像已退出，「允许访问…」会再问一次 macOS。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отказ больше не выглядит как выход из аккаунта, а «Разрешить доступ…» повторяет запрос macOS."
+          }
         }
       }
     },
@@ -5884,6 +7096,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "关掉某个服务现在会记住"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключение провайдера теперь сохраняется"
           }
         }
       }
@@ -5914,6 +7132,12 @@
             "state": "translated",
             "value": "不再读取，但上次读数还留着，所以下次启动圆环又回来了。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтение прекращается, а последнее показание сохраняется, поэтому кольцо возвращается при следующем запуске."
+          }
         }
       }
     },
@@ -5942,6 +7166,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "很远的重置会显示日期"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Далёкий сброс показывает дату"
           }
         }
       }
@@ -5972,6 +7202,12 @@
             "state": "translated",
             "value": "四周后才更新的额度以前写「Mon」，读起来像本周一。现在写「9月28日」。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для лимита, обновляющегося через четыре недели, показывалось «Пн», что выглядело как ближайший понедельник. Теперь показывается «28 сен»."
+          }
         }
       }
     },
@@ -6000,6 +7236,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "首个版本。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Первый выпуск."
           }
         }
       }
@@ -6030,6 +7272,12 @@
             "state": "translated",
             "value": "刘海可以放在任意一边"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разместите панель где угодно"
+          }
         }
       }
     },
@@ -6058,6 +7306,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "右、左、上或下。会避开程序坞和菜单栏，程序坞移动时跟着走。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Справа, слева, сверху или снизу. Панель не перекрывает Dock и строку меню и перемещается вместе с Dock."
           }
         }
       }
@@ -6088,6 +7342,12 @@
             "state": "translated",
             "value": "它会接上 Mac 自己的刘海"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Она объединяется с выемкой Mac"
+          }
         }
       }
     },
@@ -6116,6 +7376,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "放在顶部时会采用硬件的形状，两者读起来是一块，而不是停在下面的一条。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У верхнего края она повторяет форму аппаратной выемки, поэтому выглядит единым элементом, а не панелью под ней."
           }
         }
       }
@@ -6146,6 +7412,12 @@
             "state": "translated",
             "value": "Claude、Cursor、Codex 和 Gemini"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude, Cursor, Codex и Gemini"
+          }
         }
       }
     },
@@ -6174,6 +7446,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "各自读取这台 Mac 上已经登录的工具。Codenotch 从不问密码。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные читаются из уже авторизованного на этом Mac инструмента. Codenotch никогда не спрашивает пароль."
           }
         }
       }
@@ -6204,6 +7482,12 @@
             "state": "translated",
             "value": "选择 Codenotch 出现在哪里"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите, где показывать Codenotch"
+          }
         }
       }
     },
@@ -6233,6 +7517,12 @@
             "state": "translated",
             "value": "在程序坞、在菜单栏，或者哪里都不出现。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В Dock, в строке меню или нигде."
+          }
         }
       }
     },
@@ -6258,6 +7548,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch"
+          }
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Codenotch"
@@ -6291,6 +7587,12 @@
             "state": "translated",
             "value": "%@%% 已用 · %@%% 剩余"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовано %@%% · осталось %@%%"
+          }
         }
       }
     },
@@ -6319,6 +7621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "剩余 %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "осталось %@"
           }
         }
       }
@@ -6349,6 +7657,12 @@
             "state": "translated",
             "value": "已用 %@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "использовано %@"
+          }
         }
       }
     },
@@ -6377,6 +7691,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用 GitHub CLI 登录以读取 Copilot 用量"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите через GitHub CLI, чтобы читать использование Copilot"
           }
         }
       }
@@ -6407,6 +7727,12 @@
             "state": "translated",
             "value": "用 `gh auth login` 登录 GitHub CLI，然后启用 GitHub Copilot。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполните вход через GitHub CLI командой `gh auth login`, затем включите GitHub Copilot."
+          }
         }
       }
     },
@@ -6435,6 +7761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "GitHub Copilot 没有返回可计量的配额"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub Copilot не сообщил измеряемых квот"
           }
         }
       }
@@ -6465,6 +7797,12 @@
             "state": "translated",
             "value": "没有需要登录的地方：次数是从 Gemini CLI、OpenCode 和 Hermes 自己记录的调用加总的。不会读取你的 API 密钥。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход не требуется: показатель складывается из данных о собственных вызовах Gemini CLI, OpenCode и Hermes. Ваш API-ключ никогда не читается."
+          }
         }
       }
     },
@@ -6493,6 +7831,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "没有找到 Gemini CLI、OpenCode 或 Hermes 会话"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сеансы Gemini CLI, OpenCode или Hermes не найдены"
           }
         }
       }
@@ -6523,6 +7867,12 @@
             "state": "translated",
             "value": "先运行一次 `%@` — 它会登录，读数就来自那里。要换账号，在那里用 /login。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз запустите `%@` — команда выполнит вход и станет источником этих показаний. Для смены аккаунта используйте там /login."
+          }
         }
       }
     },
@@ -6551,6 +7901,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "限定范围"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ограниченное"
           }
         }
       }
@@ -6581,6 +7937,12 @@
             "state": "translated",
             "value": "Auto 用量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Автоматическое использование"
+          }
         }
       }
     },
@@ -6610,12 +7972,24 @@
             "state": "translated",
             "value": "团队按需用量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Команда по запросу"
+          }
         }
       }
     },
     "Refresh all": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обновить всё"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -6645,6 +8019,12 @@
     "Reset date": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата сброса"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -6674,6 +8054,12 @@
     "Time remaining": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставшееся время"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -6726,6 +8112,12 @@
             "state": "translated",
             "value": "不足一小时显示分钟；否则显示重置日期和时间。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минуты, если до сброса меньше часа; иначе дата и время сброса."
+          }
         }
       }
     },
@@ -6754,6 +8146,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "距离用量重置还有多久，例如 3 Days 3h 或 3h 20m。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Время до сброса использования, например 3 дня 3 ч или 3 ч 20 мин."
           }
         }
       }
@@ -6784,6 +8182,12 @@
             "state": "translated",
             "value": "%lld 天 %lld 小时后重置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сброс через %lld дн. %lld ч"
+          }
         }
       }
     },
@@ -6812,6 +8216,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld 天 %lld 小时后重置"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сброс через %lld дн. %lld ч"
           }
         }
       }
@@ -6842,6 +8252,12 @@
             "state": "translated",
             "value": "%lld 小时 %lld 分钟后重置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сброс через %lld ч %lld мин"
+          }
         }
       }
     },
@@ -6871,12 +8287,24 @@
             "state": "translated",
             "value": "屏幕上什么都没有。应用图标选「菜单栏」时，读数仍在菜单栏菜单里。否则，从「应用程序」再打开 Codenotch，才能回到这些设置。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На экране ничего нет. Если значок приложения находится в строке меню, показания остаются в её меню. Иначе снова откройте Codenotch из папки «Программы», чтобы вернуть эти настройки."
+          }
         }
       }
     },
     "Main display": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основной дисплей"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -6906,6 +8334,12 @@
     "All displays": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все дисплеи"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -6958,6 +8392,12 @@
             "state": "translated",
             "value": "刘海只出现在有菜单栏的显示器上。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Панель появляется только на дисплее со строкой меню."
+          }
         }
       }
     },
@@ -6987,12 +8427,24 @@
             "state": "translated",
             "value": "每个显示器各有一个刘海，悬停只会打开那一个。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На каждом дисплее есть своя панель, и наведение открывает только её."
+          }
         }
       }
     },
     "3 seconds": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 секунды"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -7022,6 +8474,12 @@
     "5 seconds": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 секунд"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -7051,6 +8509,12 @@
     "10 seconds": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 секунд"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -7103,6 +8567,12 @@
             "state": "translated",
             "value": "够注意到，也够被忽略。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Достаточно долго, чтобы заметить, и достаточно коротко, чтобы не мешать."
+          }
         }
       }
     },
@@ -7131,6 +8601,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "够读完会话名称并伸手过去。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Достаточно долго, чтобы прочитать название сеанса и открыть его."
           }
         }
       }
@@ -7161,6 +8637,12 @@
             "state": "translated",
             "value": "会一直留到你有机会抬头看。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаётся открытой, пока вы не успеете на неё посмотреть."
+          }
         }
       }
     },
@@ -7189,6 +8671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "设备强调色"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акцентный цвет устройства"
           }
         }
       }
@@ -7219,6 +8707,12 @@
             "state": "translated",
             "value": "已连接"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключён"
+          }
         }
       }
     },
@@ -7247,6 +8741,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "未连接"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не подключён"
           }
         }
       }
@@ -7277,6 +8777,12 @@
             "state": "translated",
             "value": "账号"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аккаунты"
+          }
         }
       }
     },
@@ -7305,6 +8811,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "通知"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления"
           }
         }
       }
@@ -7335,6 +8847,12 @@
             "state": "translated",
             "value": "没有已连接的服务，刘海里没有圆环可画。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ничего не подключено, поэтому панели нечего отображать."
+          }
         }
       }
     },
@@ -7363,6 +8881,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "刘海按这个顺序画。拖动一行的手柄即可改顺序。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Панель отображает эти кольца в таком порядке. Перетащите кольцо за маркер, чтобы изменить порядок."
           }
         }
       }
@@ -7393,6 +8917,12 @@
             "state": "translated",
             "value": "这些没有圆环可放。打开其中一个，它会接到上面列表的末尾。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У этих провайдеров нет кольца. Включите один, и он добавится в конец списка выше."
+          }
         }
       }
     },
@@ -7421,6 +8951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "刘海"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Панель"
           }
         }
       }
@@ -7451,6 +8987,12 @@
             "state": "translated",
             "value": "重置时间"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Время сброса"
+          }
         }
       }
     },
@@ -7479,6 +9021,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "显示器"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дисплеи"
           }
         }
       }
@@ -7509,6 +9057,12 @@
             "state": "translated",
             "value": "显示器"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дисплей"
+          }
         }
       }
     },
@@ -7537,6 +9091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "跟随活动窗口"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Следовать за активным окном"
           }
         }
       }
@@ -7567,6 +9127,12 @@
             "state": "translated",
             "value": "不可用的显示器"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недоступный дисплей"
+          }
         }
       }
     },
@@ -7595,6 +9161,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "应用"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложение"
           }
         }
       }
@@ -7625,6 +9197,12 @@
             "state": "translated",
             "value": "强调色"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акцентный цвет"
+          }
         }
       }
     },
@@ -7653,6 +9231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "会话结束时"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При завершении сеанса"
           }
         }
       }
@@ -7683,6 +9267,12 @@
             "state": "translated",
             "value": "短暂打开刘海"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ненадолго открыть панель"
+          }
         }
       }
     },
@@ -7711,6 +9301,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "持续"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На"
           }
         }
       }
@@ -7741,6 +9337,12 @@
             "state": "translated",
             "value": "播放声音"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Воспроизводить звук"
+          }
         }
       }
     },
@@ -7769,6 +9371,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已完成"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершено"
           }
         }
       }
@@ -7799,6 +9407,12 @@
             "state": "translated",
             "value": "在等你"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидает вас"
+          }
         }
       }
     },
@@ -7827,6 +9441,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "额度提醒"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оповещения о порогах"
           }
         }
       }
@@ -7857,6 +9477,12 @@
             "state": "translated",
             "value": "隐藏边栏"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть боковую панель"
+          }
         }
       }
     },
@@ -7885,6 +9511,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "显示边栏"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать боковую панель"
           }
         }
       }
@@ -7915,6 +9547,12 @@
             "state": "translated",
             "value": "已选中"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрано"
+          }
         }
       }
     },
@@ -7943,6 +9581,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "未选中"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не выбрано"
           }
         }
       }
@@ -7973,6 +9617,12 @@
             "state": "translated",
             "value": "%@（缺失）"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (отсутствует)"
+          }
         }
       }
     },
@@ -8001,6 +9651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "播放 %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Воспроизвести %@"
           }
         }
       }
@@ -8031,6 +9687,12 @@
             "state": "translated",
             "value": "每月预算"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месячный бюджет"
+          }
         }
       }
     },
@@ -8059,6 +9721,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет"
           }
         }
       }
@@ -8089,6 +9757,12 @@
             "state": "translated",
             "value": "token"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "токенов"
+          }
         }
       }
     },
@@ -8117,6 +9791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 额度已用尽"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Достигнут лимит %@"
           }
         }
       }
@@ -8147,6 +9827,12 @@
             "state": "translated",
             "value": "%@ 已用 %lld%%"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование %@ — %lld%%"
+          }
         }
       }
     },
@@ -8175,6 +9861,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "它的 %@ 额度已用完。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит %@ исчерпан."
           }
         }
       }
@@ -8205,12 +9897,24 @@
             "state": "translated",
             "value": "它的 %@ 额度已用完 — %@ 重置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит %@ исчерпан — сброс %@"
+          }
         }
       }
     },
     "%lld%% of its %@ limit used.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовано %lld%% от лимита «%@»."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -8263,6 +9967,12 @@
             "state": "translated",
             "value": "移到正在接收键盘输入的窗口所在的显示器。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перемещается на дисплей с окном, получающим ввод с клавиатуры."
+          }
         }
       }
     },
@@ -8291,6 +10001,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "固定在 %@。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закреплено на %@."
           }
         }
       }
@@ -8321,6 +10037,12 @@
             "state": "translated",
             "value": "那台显示器已断开。Codenotch 会跟随活动窗口，直到它回来。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот дисплей отключён. Codenotch следует за активным окном, пока дисплей не вернётся."
+          }
         }
       }
     },
@@ -8349,6 +10071,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "拖动以改顺序。刘海按这个顺序画圆环。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перетащите, чтобы изменить порядок. Панель отображает кольца в этом порядке."
           }
         }
       }
@@ -8379,6 +10107,12 @@
             "state": "translated",
             "value": "打开后，刘海里会出现它的圆环。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включите, чтобы добавить провайдеру кольцо на панели."
+          }
         }
       }
     },
@@ -8407,6 +10141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 的提醒已静音。点击取消静音。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оповещения для %@ отключены. Нажмите, чтобы включить их."
           }
         }
       }
@@ -8437,6 +10177,12 @@
             "state": "translated",
             "value": "当 %@ 的额度越过 80% 和 100% 时提醒。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оповещать, когда %@ достигает 80% и 100% лимита."
+          }
         }
       }
     },
@@ -8465,6 +10211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "按你设定的上限填充圆环；Google 不为 API 密钥公布额度。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заполняет кольцо до выбранного предела; Google не публикует предел для API-ключа."
           }
         }
       }
@@ -8495,6 +10247,12 @@
             "state": "translated",
             "value": "Codenotch 读取这台 Mac 上已经登录的工具的用量 — 从不问你的密码。安装并登录 Claude Code（终端工具，不是 Claude 应用）、Cursor（编辑器或 cursor-agent）、Codex、Antigravity、GLM、Grok、OpenCode、GitHub Copilot 或 Gemini API 密钥（经由 Gemini CLI、OpenCode 或 Hermes）中的任意一个，刘海里就会出现对应的圆环。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch читает использование из инструментов, уже авторизованных на этом Mac, и никогда не спрашивает пароль. Установите и авторизуйтесь в Claude Code (терминальном инструменте, не приложении Claude), Cursor (редакторе или cursor-agent), Codex, Antigravity, GLM, Grok, OpenCode, GitHub Copilot или Gemini API через Gemini CLI, OpenCode или Hermes — и кольцо появится на панели."
+          }
         }
       }
     },
@@ -8523,6 +10281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "macOS 会询问一次，是否允许读取 Claude Code、Antigravity 和 cursor-agent 已保存的登录信息。请选「始终允许」— 只选「允许」的话，每次都会再问。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS один раз запросит доступ к сохранённым входам Claude Code, Antigravity и cursor-agent. Выберите «Разрешать всегда» — обычное «Разрешить» приводит к повторному запросу."
           }
         }
       }
@@ -8553,6 +10317,12 @@
             "state": "translated",
             "value": "可以重排圆环、选择显示器，额度快用尽时会通知你。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меняйте порядок колец, выбирайте дисплей и получайте уведомления о приближении лимита."
+          }
         }
       }
     },
@@ -8581,6 +10351,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "拖动以重排圆环"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перетащите, чтобы изменить порядок колец"
           }
         }
       }
@@ -8611,6 +10387,12 @@
             "state": "translated",
             "value": "设置分成「已连接」和「未连接」；拖动已连接行的手柄，即可改变刘海绘制顺序。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки разделены на «Подключённые» и «Не подключённые»; перетащите подключённую строку за маркер, чтобы изменить порядок на панели."
+          }
         }
       }
     },
@@ -8639,6 +10421,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "把刘海钉在一台显示器上，或在每一台上显示"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрепите панель на одном дисплее или показывайте её на всех"
           }
         }
       }
@@ -8669,6 +10457,12 @@
             "state": "translated",
             "value": "外观里的「显示器」可选主显示器或全部；第二个选择器把单个刘海钉在指定屏幕上。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбор дисплея в разделе «Внешний вид» предлагает основной дисплей или все дисплеи; второй выбор закрепляет панель на указанном экране."
+          }
         }
       }
     },
@@ -8697,6 +10491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "圆环越过 80% 和 100% 时会说明"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кольцо сообщает о достижении 80% и 100%"
           }
         }
       }
@@ -8727,6 +10527,12 @@
             "state": "translated",
             "value": "每次越过发一条系统通知，可在该服务自己的设置行里静音。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системное уведомление при каждом пересечении порога; для каждого провайдера его можно отключить в строке настроек."
+          }
         }
       }
     },
@@ -8755,6 +10561,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "GitHub Copilot 成了新的圆环"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub Copilot — новое кольцо"
           }
         }
       }
@@ -8785,6 +10597,12 @@
             "state": "translated",
             "value": "用这台 Mac 上已有的 GitHub CLI 会话读取 Copilot 配额接口。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Читает квоту Copilot через API GitHub, используя уже существующую сессию GitHub CLI на Mac."
+          }
         }
       }
     },
@@ -8813,6 +10631,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "会话结束时会告诉你"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сообщать о завершении сеанса"
           }
         }
       }
@@ -8843,6 +10667,12 @@
             "state": "translated",
             "value": "助手停止工作或开始等你时，刘海会自己打开几秒并响一声；点击会跳过去。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Панель открывается на несколько секунд и издаёт сигнал, когда агент завершает работу или начинает ждать вас; щелчок открывает сеанс."
+          }
         }
       }
     },
@@ -8871,6 +10701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "按住 ⌥ 沿边缘拖动胶囊"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перетаскивайте панель вдоль края с ⌥"
           }
         }
       }
@@ -8901,6 +10737,12 @@
             "state": "translated",
             "value": "把它挪开，避开钉在同一位置的其他菜单栏应用；按边缘记住。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сдвиньте её, чтобы освободить место для другого приложения в строке меню; положение запоминается для каждого края."
+          }
         }
       }
     },
@@ -8929,6 +10771,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "选择强调色"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите акцентный цвет"
           }
         }
       }
@@ -8959,6 +10807,12 @@
             "state": "translated",
             "value": "默认用设备强调色，也可以给圆环的正常状态固定一个颜色 — 琥珀和红色警告色始终不变。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По умолчанию используется акцент устройства или фиксированный цвет положительного состояния кольца; янтарный и красный цвета предупреждений не меняются."
+          }
         }
       }
     },
@@ -8987,6 +10841,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用倒计时代替重置日期"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обратный отсчёт вместо даты сброса"
           }
         }
       }
@@ -9017,6 +10877,12 @@
             "state": "translated",
             "value": "外观里的「重置时间」可以显示「3 小时 20 分钟后重置」，而不是日期和时间。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В выборе времени сброса в разделе «Внешний вид» можно показывать «Сброс через 3 ч 20 мин» вместо даты и времени."
+          }
         }
       }
     },
@@ -9045,6 +10911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "可以从 cursor-agent 读取 Cursor，企业套餐也能读对"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Корректное чтение Cursor через cursor-agent и корпоративных тарифов"
           }
         }
       }
@@ -9075,6 +10947,12 @@
             "state": "translated",
             "value": "只用 CLI 登录的 Cursor 现在也有圆环；企业/团队套餐会读到真实用量，而不再显示没有可计量的额度。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход в Cursor только через CLI теперь получает кольцо, а корпоративные и командные тарифы показывают настоящее использование."
+          }
         }
       }
     },
@@ -9103,6 +10981,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude 和 Antigravity 的钥匙串提示更少"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меньше запросов связки ключей для Claude и Antigravity"
           }
         }
       }
@@ -9133,6 +11017,12 @@
             "state": "translated",
             "value": "Claude 先读自己 CLI 的 /usage，只有退路才碰钥匙串；Antigravity 会先问它的语言服务器。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude сначала читает /usage собственного CLI и обращается к связке ключей только как к запасному варианту; Antigravity сначала опрашивает языковой сервер."
+          }
         }
       }
     },
@@ -9161,6 +11051,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "不到 1% 的用量不再显示成 0%"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование меньше 1% больше не отображается как 0%"
           }
         }
       }
@@ -9191,6 +11087,12 @@
             "state": "translated",
             "value": "不到百分之一的读数会显示到十分位（「<0.1%」），而不是四舍五入成没有。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показание меньше одного процента отображается с десятичной долей («<0,1%»), а не округляется до нуля."
+          }
         }
       }
     },
@@ -9219,6 +11121,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "贡献者可以在没有 Xcode 签名的情况下构建"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разработчики могут собирать без подписи Xcode"
           }
         }
       }
@@ -9249,12 +11157,24 @@
             "state": "translated",
             "value": "维护者证书不在时，make build 和 make test 会自动签名；CI 现在会在每次 push 和 pull request 上跑测试套件。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "make build и make test автоматически подписывают сборку при отсутствии сертификата сопровождающего, а CI запускает тесты при каждом push и pull request."
+          }
         }
       }
     },
     "Follow System": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как в системе"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -9284,6 +11204,12 @@
     "Matches the Mac's preferred language.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соответствует предпочитаемому языку Mac."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -9313,6 +11239,12 @@
     "Codenotch uses this language even if the Mac does not.": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch использует этот язык независимо от языка Mac."
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -9342,6 +11274,12 @@
     "Language": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Язык"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -9394,6 +11332,12 @@
             "state": "translated",
             "value": "显示用量节奏"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывать темп использования"
+          }
         }
       }
     },
@@ -9422,6 +11366,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "把每段有时限的额度与距离重置的时间比较，显示透支还是留有余量。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сравнивает каждый лимит по времени с оставшимся до сброса временем и показывает дефицит или запас квоты."
           }
         }
       }
@@ -9452,6 +11402,12 @@
             "state": "translated",
             "value": "大小"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размер"
+          }
         }
       }
     },
@@ -9480,6 +11436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "小"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маленький"
           }
         }
       }
@@ -9510,6 +11472,12 @@
             "state": "translated",
             "value": "中"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Средний"
+          }
         }
       }
     },
@@ -9538,6 +11506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "大"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Большой"
           }
         }
       }
@@ -9568,6 +11542,12 @@
             "state": "translated",
             "value": "边缘上占得最少。能读，但隔着桌子就不行。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Занимает минимум места у края. Читается вблизи, но не издалека."
+          }
         }
       }
     },
@@ -9596,6 +11576,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "刘海绘制时的尺寸。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размер, для которого была отрисована панель."
           }
         }
       }
@@ -9626,6 +11612,12 @@
             "state": "translated",
             "value": "一眼更好读，也更难忽视。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Легче читать одним взглядом, но сложнее не заметить."
+          }
         }
       }
     },
@@ -9655,12 +11647,24 @@
             "state": "translated",
             "value": "按住 ⌥ 拖动刘海，沿边缘滑动。每条边都会记住你放的位置。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживайте ⌥ и перетаскивайте панель вдоль края. Для каждого края запоминается последнее положение."
+          }
         }
       }
     },
     "Recentre": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По центру"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -9713,6 +11717,12 @@
             "state": "translated",
             "value": "%@% 透支"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "дефицит %@%"
+          }
         }
       }
     },
@@ -9742,12 +11752,24 @@
             "state": "translated",
             "value": "%@% 预留"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "резерв %@%"
+          }
         }
       }
     },
     "Idle": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бездействие"
+          }
+        },
         "fr": {
           "stringUnit": {
             "state": "translated",
@@ -9800,6 +11822,12 @@
             "state": "translated",
             "value": "在 ~/.codex-%@ 登录 Codex 以读取用量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите в Codex в ~/.codex-%@, чтобы читать использование"
+          }
         }
       }
     },
@@ -9828,6 +11856,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用 Command Code 应用登录以读取用量"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите через приложение Command Code, чтобы читать использование"
           }
         }
       }
@@ -9858,6 +11892,12 @@
             "state": "translated",
             "value": "在设置里填写 Ollama API 密钥，或导出 OLLAMA_API_KEY"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите API-ключ Ollama в настройках или экспортируйте OLLAMA_API_KEY"
+          }
         }
       }
     },
@@ -9886,6 +11926,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "启动 Ollama 以监视本地模型"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запустите Ollama, чтобы отслеживать локальные модели"
           }
         }
       }
@@ -9916,6 +11962,12 @@
             "state": "translated",
             "value": "在下方填写 Ollama API 密钥，或在 shell 里导出 OLLAMA_API_KEY。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите API-ключ Ollama ниже или экспортируйте OLLAMA_API_KEY в оболочке."
+          }
         }
       }
     },
@@ -9944,6 +11996,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用 Command Code 应用登录 — 它会写入 ~/.commandcode/auth.json，刘海会读它。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите через приложение Command Code — оно записывает ~/.commandcode/auth.json, откуда панель читает данные."
           }
         }
       }
@@ -9974,6 +12032,12 @@
             "state": "translated",
             "value": "这个 Command Code 账号目前没有可计量的额度"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для этого аккаунта Command Code пока нет измеряемого использования"
+          }
         }
       }
     },
@@ -10002,6 +12066,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每月用量"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месячное использование"
           }
         }
       }
@@ -10032,6 +12102,12 @@
             "state": "translated",
             "value": "会话用量"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование сеанса"
+          }
         }
       }
     },
@@ -10060,6 +12136,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每周用量"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недельное использование"
           }
         }
       }
@@ -10090,6 +12172,12 @@
             "state": "translated",
             "value": "本地模型"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Локальные модели"
+          }
         }
       }
     },
@@ -10118,6 +12206,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "本机"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Локальный компьютер"
           }
         }
       }
@@ -10148,6 +12242,12 @@
             "state": "translated",
             "value": "Codenotch 读取这台 Mac 上已经登录的工具的用量 — 从不问你的密码。安装并登录 Claude Code（终端工具，不是 Claude 应用）、Cursor（编辑器或 cursor-agent）、Codex、Antigravity、GLM、Grok、OpenCode、Command Code、GitHub Copilot 或 Gemini API 密钥（经由 Gemini CLI、OpenCode 或 Hermes）中的任意一个，刘海里就会出现对应的圆环。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch читает использование из инструментов, уже авторизованных на этом Mac, и никогда не спрашивает пароль. Установите и авторизуйтесь в Claude Code (терминальном инструменте, не приложении Claude), Cursor (редакторе или cursor-agent), Codex, Antigravity, GLM, Grok, OpenCode, Command Code, GitHub Copilot или Gemini API через Gemini CLI, OpenCode или Hermes — и кольцо появится на панели."
+          }
         }
       }
     },
@@ -10165,12 +12265,24 @@
             "state": "translated",
             "value": "已完成"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "завершено"
+          }
         }
       }
     },
     "Complete": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершено"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10188,6 +12300,12 @@
     "Waiting": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидание"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10216,12 +12334,24 @@
             "state": "translated",
             "value": "本地会话"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Локальный сеанс"
+          }
         }
       }
     },
     "Active": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активно"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10250,12 +12380,24 @@
             "state": "translated",
             "value": "请先运行 Antigravity IDE，才能读取此账号。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Убедитесь, что Antigravity IDE запущена, чтобы читать этот аккаунт."
+          }
         }
       }
     },
     "Automatic": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Автоматически"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10284,6 +12426,12 @@
             "state": "translated",
             "value": "5 小时额度"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит на 5 часов"
+          }
         }
       }
     },
@@ -10300,6 +12448,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每周额度"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недельный лимит"
           }
         }
       }
@@ -10318,6 +12472,12 @@
             "state": "translated",
             "value": "液态玻璃"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жидкое стекло"
+          }
         }
       }
     },
@@ -10334,6 +12494,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "纯黑"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сплошной чёрный"
           }
         }
       }
@@ -10352,6 +12518,12 @@
             "state": "translated",
             "value": "系统液态玻璃。跟随这台 Mac 的外观设置，包括通透或着色玻璃，以及浅色或深色模式。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системное жидкое стекло. Следует настройкам внешнего вида Mac, включая прозрачное или тонированное стекло и светлый или тёмный режим."
+          }
         }
       }
     },
@@ -10368,6 +12540,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "原来的不透明黑刘海。无论 Mac 外观如何，始终是深色。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исходная непрозрачная чёрная панель. Всегда тёмная независимо от внешнего вида Mac."
           }
         }
       }
@@ -10386,6 +12564,12 @@
             "state": "translated",
             "value": "周额度有了自己的圆环，液态玻璃，法语，以及直接从 Claude Desktop 自己的缓存读取用量。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Второе недельное кольцо, Liquid Glass, французский язык и Claude Desktop читаются напрямую из собственного кэша."
+          }
         }
       }
     },
@@ -10402,6 +12586,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "周额度有了自己的圆环"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неделя получает отдельное кольцо"
           }
         }
       }
@@ -10420,6 +12610,12 @@
             "state": "translated",
             "value": "第二条弧，画在主环内侧或外侧，给同时公布每周额度和会话额度的服务。默认关闭；外观里有开关。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вторая дуга внутри основного кольца или снаружи для провайдеров с недельным и сеансовым лимитами. По умолчанию выключена; переключатель находится во «Внешнем виде»."
+          }
         }
       }
     },
@@ -10437,6 +12633,12 @@
             "state": "translated",
             "value": "展开的刘海、提示卡和设置圆球用上系统自己的玻璃表面，折射背后的内容，而不是盖在上面。「降低透明度」会变成实心。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открытая панель, её подсказка и кнопка настроек используют системную стеклянную поверхность и преломляют фон. При уменьшении прозрачности они становятся сплошными."
+          }
         }
       }
     },
@@ -10450,6 +12652,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Français"
+          }
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Français"
@@ -10471,6 +12679,12 @@
             "state": "translated",
             "value": "外观里第三种语言，与 English 和 简体中文并列。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Третий язык во «Внешнем виде» наряду с английским и 简体中文."
+          }
         }
       }
     },
@@ -10487,6 +12701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude Desktop 用量，从它自己的缓存读取"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использование Claude Desktop из собственного кэша"
           }
         }
       }
@@ -10505,6 +12725,12 @@
             "state": "translated",
             "value": "读取 Claude 账号的第三条路径，在 CLI 和令牌答不上来时使用。什么都不会发出去：缓存就在这台 Mac 上，只做解压。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Третий способ читать аккаунт Claude, когда CLI и токен не отвечают. Данные никуда не отправляются: кэш находится на этом Mac и только распаковывается."
+          }
         }
       }
     },
@@ -10521,6 +12747,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "能找到 npm 安装的 Claude Code"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code найден там, куда его установил npm"
           }
         }
       }
@@ -10539,6 +12771,12 @@
             "state": "translated",
             "value": "nvm、Volta 或 pnpm 下的安装也会被找到，这些安装的后台登录续期也一并恢复。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Установки через nvm, Volta или pnpm обнаруживаются так же, как остальные, и для них снова работает фоновое обновление входа."
+          }
         }
       }
     },
@@ -10555,6 +12793,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "不再留下 transcript 文件夹"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Больше никаких папок с расшифровками"
           }
         }
       }
@@ -10573,6 +12817,12 @@
             "state": "translated",
             "value": "以前每次轮询 Claude 用量都在一个新目录里跑，Claude Code 会给每一次建一个 transcript 文件夹。现在固定在一处、以 print 模式运行，不再写任何会话。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раньше чтение Claude запускалось в новой папке при каждой проверке, а Claude Code создавал там папку расшифровки. Теперь используется одно место и режим печати без записи сеанса."
+          }
         }
       }
     },
@@ -10589,6 +12839,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "重置时间跟随 Mac 的时钟"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Время сброса следует часам Mac"
           }
         }
       }
@@ -10607,6 +12863,12 @@
             "state": "translated",
             "value": "24 小时制的 Mac 会显示 24 小时制的重置时间，而不是上午、下午。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На Mac с 24-часовым форматом время сброса показывается в 24-часовом формате, без AM и PM."
+          }
         }
       }
     },
@@ -10623,6 +12885,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "结束的会话会标明"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершённый сеанс отображается как завершённый"
           }
         }
       }
@@ -10641,6 +12909,12 @@
             "state": "translated",
             "value": "助手会话带有完成状态，已经跑完的和还在进行的看起来不一样。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сеансы агентов содержат состояние успеха, поэтому завершённый запуск отличается от текущего."
+          }
         }
       }
     },
@@ -10657,6 +12931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Antigravity：选择哪项额度打头"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Antigravity: выбор основного лимита"
           }
         }
       }
@@ -10675,6 +12955,12 @@
             "state": "translated",
             "value": "主圆环可以跟着指定的额度走，而不一定是最紧的那项；只有 CLI 的安装也算真实账号。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основное кольцо может следовать выбранному лимиту, а не самому строгому, и установка только через CLI считается полноценным аккаунтом."
+          }
         }
       }
     },
@@ -10691,6 +12977,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "只有硬件刘海才会唤醒贴上去的刘海"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Панель, объединённая с выемкой, просыпается только от аппаратной выемки"
           }
         }
       }
@@ -10709,6 +13001,12 @@
             "state": "translated",
             "value": "和摄像头凹槽合在一起的刘海，不再被整条上边缘任意位置的指针唤醒。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Панель, объединённая с камерой, больше не просыпается от указателя в любой точке верхнего края."
+          }
         }
       }
     },
@@ -10725,6 +13023,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每周圆环"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недельное кольцо"
           }
         }
       }
@@ -10743,6 +13047,12 @@
             "state": "translated",
             "value": "表面"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поверхность"
+          }
         }
       }
     },
@@ -10759,6 +13069,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "刘海显示"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показания панели"
           }
         }
       }
@@ -10777,12 +13093,24 @@
             "state": "translated",
             "value": "选择 Antigravity 在主刘海里显示哪项额度。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите лимит, который отображается на основной панели Antigravity."
+          }
         }
       }
     },
     "Off": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выкл."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10800,6 +13128,12 @@
     "Inside": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Внутри"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10817,6 +13151,12 @@
     "Outside": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снаружи"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -10845,6 +13185,12 @@
             "state": "translated",
             "value": "每个服务一个圆环，显示主额度。每周额度仍在提示卡里。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одно кольцо на провайдера с основным лимитом. Недельная квота остаётся в карточке при наведении."
+          }
         }
       }
     },
@@ -10861,6 +13207,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "一条更细的每周额度圆环，画在主环内侧。和工作指示共用那个空隙。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тонкое кольцо недельного лимита внутри основного. Оно делит зазор с индикатором работы."
           }
         }
       }
@@ -10879,6 +13231,12 @@
             "state": "translated",
             "value": "一条更细的每周额度圆环，画在主环外侧，圆环和刘海边缘之间的空隙里。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тонкое кольцо недельного лимита вокруг основного, в промежутке между кольцом и краем панели."
+          }
         }
       }
     },
@@ -10895,6 +13253,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在终端运行 %@ 以登录 %@。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запустите %@ в Терминале, чтобы войти в %@."
           }
         }
       }
@@ -10913,6 +13277,12 @@
             "state": "translated",
             "value": "今日请求 · 上次使用 %@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запросов сегодня · последний запуск %@"
+          }
         }
       }
     },
@@ -10929,6 +13299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "昨天"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "вчера"
           }
         }
       }
@@ -10947,6 +13323,12 @@
             "state": "translated",
             "value": "%lld 天前"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld дн. назад"
+          }
         }
       }
     },
@@ -10963,6 +13345,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "个人"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Личный"
           }
         }
       }
@@ -10981,6 +13369,12 @@
             "state": "translated",
             "value": "Gemini 模型"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Модели Gemini"
+          }
         }
       }
     },
@@ -10997,6 +13391,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 小时额度"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит на 5 часов"
           }
         }
       }
@@ -11015,6 +13415,12 @@
             "state": "translated",
             "value": "Claude 和 GPT 模型"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Модели Claude и GPT"
+          }
         }
       }
     },
@@ -11031,6 +13437,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "提问"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вопрос"
           }
         }
       }
@@ -11049,6 +13461,12 @@
             "state": "translated",
             "value": "批准"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подтверждение"
+          }
         }
       }
     },
@@ -11065,6 +13483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "权限"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешение"
           }
         }
       }
@@ -11083,6 +13507,12 @@
             "state": "translated",
             "value": "需要你的输入"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "требуется ваш ответ"
+          }
         }
       }
     },
@@ -11099,6 +13529,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在 %@ 中工作"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Работает в %@"
           }
         }
       }
@@ -11117,6 +13553,12 @@
             "state": "translated",
             "value": "连接"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключение"
+          }
         }
       }
     },
@@ -11133,6 +13575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "预设"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предустановка"
           }
         }
       }
@@ -11151,6 +13599,12 @@
             "state": "translated",
             "value": "自定"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пользовательский"
+          }
         }
       }
     },
@@ -11167,6 +13621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "预设大小"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размер предустановки"
           }
         }
       }
@@ -11185,6 +13645,12 @@
             "state": "translated",
             "value": "整体缩放表面 — 圆环、文字和提示卡一起变，比例保持原样。100% 是刘海设计时的尺寸。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Масштабирует всю поверхность — кольца, текст и подсказку — сохраняя пропорции. 100% — исходный размер панели."
+          }
         }
       }
     },
@@ -11201,6 +13667,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ollama API 密钥"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-ключ Ollama"
           }
         }
       }
@@ -11219,12 +13691,24 @@
             "state": "translated",
             "value": "粘贴密钥"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вставьте ключ"
+          }
         }
       }
     },
     "Save": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -11242,6 +13726,12 @@
     "Saved": {
       "extractionState": "manual",
       "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранено"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
@@ -11270,6 +13760,12 @@
             "state": "translated",
             "value": "%@ 用量需要重新登录 — 在终端里运行一次 `claude`。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для использования %@ нужно обновить вход — один раз запустите `claude` в терминале."
+          }
         }
       }
     },
@@ -11286,6 +13782,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ %@ · 来自 Ollama"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ · через Ollama"
           }
         }
       }
@@ -11304,6 +13806,12 @@
             "state": "translated",
             "value": "已从刘海隐藏 · 仍加载在 Ollama"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыто на панели · Загружено в Ollama"
+          }
         }
       }
     },
@@ -11320,6 +13828,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在刘海里显示或隐藏此模型。它仍加载在 Ollama 中。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывать или скрывать эту модель на панели. В Ollama она остаётся загруженной."
           }
         }
       }
@@ -11338,6 +13852,12 @@
             "state": "translated",
             "value": "思考中"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размышление"
+          }
         }
       }
     },
@@ -11354,6 +13874,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ · 本地"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · Локально"
           }
         }
       }
@@ -11372,6 +13898,12 @@
             "state": "translated",
             "value": "这段时间还没有 Ollama 用量记录。"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За этот период использование Ollama ещё не записано."
+          }
         }
       }
     },
@@ -11388,6 +13920,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "未使用重置"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неиспользованные сбросы"
           }
         }
       }
@@ -11406,6 +13944,12 @@
             "state": "translated",
             "value": "暂无未使用重置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет неиспользованных сбросов"
+          }
         }
       }
     },
@@ -11422,6 +13966,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1 次未使用重置"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 неиспользованный сброс"
           }
         }
       }
@@ -11440,6 +13990,12 @@
             "state": "translated",
             "value": "%lld 次未使用重置"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld неиспользованных сбросов"
+          }
         }
       }
     },
@@ -11457,6 +14013,12 @@
             "state": "translated",
             "value": "%@ 到期"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Истекает %@"
+          }
         }
       }
     },
@@ -11473,6 +14035,474 @@
           "stringUnit": {
             "state": "translated",
             "value": "下次 %@ 到期"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Следующий истекает %@"
+          }
+        }
+      }
+    },
+    "A system notification the moment a provider's headline limit crosses 80%, and again at 100% — once per crossing, and again only after the window rolls over. Mute one from the bell beside its row in Accounts.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当某家服务的主额度越过 80% 时发一条系统通知，100% 时再发一次 — 每次越过只发一次，要等额度窗口滚动过后才会再发。可在「账号」里该行旁边的铃铛上静音。"
+          }
+        }
+      }
+    },
+    "Codenotch already knows the moment an agent stops working or stops to ask you something. Clicking the notch while it is open brings that session's app to the front — the app, not the tab: only some terminals let anything outside them choose a tab, so the tooltip names the session instead.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codenotch 已经知道助手何时停下来、或停下来问你。刘海展开时点一下，会把那个会话的应用带到前台 — 是应用，不是标签页：只有部分终端允许外部选定标签，所以提示里会写会话名称。"
+          }
+        }
+      }
+    },
+    "The sound plays on the ordinary output, not the interface sound-effects channel — so it is still heard with “Play user interface sound effects” switched off in System Settings → Sound.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "声音走普通输出，不是界面音效通道 — 所以在系统设置 → 声音里关掉「播放用户界面声音效果」之后仍然听得见。"
+          }
+        }
+      }
+    },
+    "Most readings are borrowed from a tool that already holds the account. DeepSeek is the exception: clicking Sign in opens its own Codenotch WebView, and signing out here clears only that session and its saved reading.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大多数读数借自已经持有该账号的工具。DeepSeek 是例外：点「登录」会打开 Codenotch 自己的 WebView，在这里退出只会清掉这次会话和已保存的读数。"
+          }
+        }
+      }
+    },
+    "Lifetime tokens": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "累计 token"
+          }
+        }
+      }
+    },
+    "Peak tokens": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "峰值 token"
+          }
+        }
+      }
+    },
+    "Longest chat": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最长对话"
+          }
+        }
+      }
+    },
+    "Current streak": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前连续"
+          }
+        }
+      }
+    },
+    "Longest streak": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最长连续"
+          }
+        }
+      }
+    },
+    "Today": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日"
+          }
+        }
+      }
+    },
+    "30-day tokens": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 天 token"
+          }
+        }
+      }
+    },
+    "Pending": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "待出"
+          }
+        }
+      }
+    },
+    "Spent": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已花费"
+          }
+        }
+      }
+    },
+    "Remaining": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "剩余"
+          }
+        }
+      }
+    },
+    "Funded": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已充值"
+          }
+        }
+      }
+    },
+    "Usage details": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用量明细"
+          }
+        }
+      }
+    },
+    "Tokens": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Token"
+          }
+        }
+      }
+    },
+    "Cost": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "费用"
+          }
+        }
+      }
+    },
+    "Requests": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请求"
+          }
+        }
+      }
+    },
+    "API keys": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API 密钥"
+          }
+        }
+      }
+    },
+    "Daily tokens": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每日 token"
+          }
+        }
+      }
+    },
+    "Daily cost": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每日费用"
+          }
+        }
+      }
+    },
+    "peak %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "峰值 %@"
+          }
+        }
+      }
+    },
+    "Account usage (%@)": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "账号用量（%@）"
+          }
+        }
+      }
+    },
+    "Monitoring off.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未在监视。"
+          }
+        }
+      }
+    },
+    "Open LM Studio": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开 LM Studio"
+          }
+        }
+      }
+    },
+    "Open Ollama": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开 Ollama"
+          }
+        }
+      }
+    },
+    "Server address": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "服务器地址"
+          }
+        }
+      }
+    },
+    "Check connection": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查连接"
+          }
+        }
+      }
+    },
+    "Apply": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用"
+          }
+        }
+      }
+    },
+    "API token": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API 令牌"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除"
+          }
+        }
+      }
+    },
+    "Checking LM Studio…": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在检查 LM Studio…"
+          }
+        }
+      }
+    },
+    "Connecting to LM Studio…": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在连接 LM Studio…"
+          }
+        }
+      }
+    },
+    "Checking Ollama…": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在检查 Ollama…"
+          }
+        }
+      }
+    },
+    "Connecting to Ollama…": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在连接 Ollama…"
+          }
+        }
+      }
+    },
+    "Loaded models appear in Accounts → Connected and are checked every second. Embedding models are not shown.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已加载的模型会出现在「账号 → 已连接」，每秒检查一次。不显示嵌入模型。"
+          }
+        }
+      }
+    },
+    "A token is stored and sent with every request.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已保存令牌，每次请求都会带上。"
+          }
+        }
+      }
+    },
+    "Only needed when LM Studio's server requires a token (Developer → Server Settings). Without one, requests are sent with no Authorization header.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅当 LM Studio 服务器要求令牌时才需要（开发者 → 服务器设置）。不填则请求不带 Authorization 头。"
+          }
+        }
+      }
+    },
+    "Detected models appear in Accounts → Connected. Model loading and unloading is checked every second.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检测到的模型会出现在「账号 → 已连接」。模型加载和卸载每秒检查一次。"
+          }
+        }
+      }
+    },
+    "Measure speed and thinking": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "测量速度与思考"
+          }
+        }
+      }
+    },
+    "To measure responses, point your chat client to http://127.0.0.1:11435 and keep Codenotch open.": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要测量回复，把聊天客户端指向 http://127.0.0.1:11435，并保持 Codenotch 打开。"
           }
         }
       }

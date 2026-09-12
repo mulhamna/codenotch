@@ -382,6 +382,20 @@ final class PointerStateTests: XCTestCase {
 /// resting arc follows that curve rather than merely sitting near it.
 @MainActor
 final class SettingsOrbTests: XCTestCase {
+    func testCameraNotchHandlesMirrorEachOther() {
+        let model = NotchViewModel()
+        model.edge = .top
+        model.hardwareNotch = HardwareNotch(width: 220, height: 37)
+
+        XCTAssertEqual(model.moveAlong + model.orbAlong, model.shapeLength, accuracy: 0.001,
+                       "The buttons must sit equally far from the two ends")
+        let moveArc = model.moveAlong + model.moveArcOffset.width
+        let settingsArc = model.orbAlong + model.orbArcOffset.width
+        XCTAssertEqual(moveArc + settingsArc, model.shapeLength, accuracy: 0.001,
+                       "The resting arcs must mirror around the notch's centre")
+        XCTAssertEqual(model.moveArcOffset.height, model.orbArcOffset.height, accuracy: 0.001)
+    }
+
     private func centre(_ count: Int) -> CGFloat {
         NotchLayout.orbCenterAlong(cellCount: count)
     }

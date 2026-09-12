@@ -33,15 +33,15 @@ struct LMStudioSettingsRow: View {
             }
             .font(.body)
 
-            Button("Open LM Studio") { store.openAccountSource(providerID: providerID) }
+            Button(L10n.t("Open LM Studio")) { store.openAccountSource(providerID: providerID) }
                 .controlSize(.small)
 
             HStack {
-                TextField("Server address", text: $address)
+                TextField(L10n.t("Server address"), text: $address)
                     .textFieldStyle(.roundedBorder)
                     .onSubmit { applyAddress() }
                     .accessibilityLabel("LM Studio server address")
-                Button(address == preferences.lmstudioEndpoint ? "Check connection" : "Apply") {
+                Button(address == preferences.lmstudioEndpoint ? L10n.t("Check connection") : L10n.t("Apply")) {
                     applyAddress()
                 }
                 .disabled(address == preferences.lmstudioEndpoint && (!enabled || checking))
@@ -51,16 +51,16 @@ struct LMStudioSettingsRow: View {
             if let addressError {
                 Text(addressError).foregroundStyle(.orange)
             } else if !enabled {
-                Text("Monitoring off.")
+                Text(L10n.t("Monitoring off."))
                     .foregroundStyle(.secondary)
             } else if checking && snapshot?.hasReading != true {
-                Text("Checking LM Studio…").foregroundStyle(.secondary)
+                Text(L10n.t("Checking LM Studio…")).foregroundStyle(.secondary)
             } else {
-                Text(snapshot?.localRuntime?.summary ?? snapshot?.statusMessage ?? "Connecting to LM Studio…")
+                Text(snapshot?.localRuntime?.summary ?? snapshot?.statusMessage ?? L10n.t("Connecting to LM Studio…"))
                     .foregroundStyle(snapshot?.hasReading == true ? Color.secondary : .orange)
             }
 
-            Text("Loaded models appear in Accounts → Connected and are checked every second. Embedding models are not shown.")
+            Text(L10n.t("Loaded models appear in Accounts → Connected and are checked every second. Embedding models are not shown."))
                 .foregroundStyle(.secondary)
 
             tokenEntry
@@ -80,7 +80,7 @@ struct LMStudioSettingsRow: View {
     /// wins over it, so a shell that exports one needs no entry here.
     private var tokenEntry: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("API token")
+            Text(L10n.t("API token"))
                 .foregroundStyle(.secondary)
             HStack(spacing: 8) {
                 SecureField("sk-lm-…", text: $token)
@@ -88,7 +88,7 @@ struct LMStudioSettingsRow: View {
                     .textFieldStyle(.roundedBorder)
                     .labelsHidden()
                     .frame(maxWidth: 260)
-                Button("Save") {
+                Button(L10n.t("Save")) {
                     guard !token.isEmpty else { return }
                     LMStudioCredentials.store(token)
                     token = ""
@@ -98,7 +98,7 @@ struct LMStudioSettingsRow: View {
                 .disabled(token.isEmpty)
                 .controlSize(.small)
                 if LMStudioCredentials.isPresent {
-                    Button("Remove") {
+                    Button(L10n.t("Remove")) {
                         LMStudioCredentials.delete()
                         tokenSaved = false
                         if enabled { store.refresh(providerID: providerID) }
@@ -106,12 +106,12 @@ struct LMStudioSettingsRow: View {
                     .controlSize(.small)
                 }
                 if tokenSaved {
-                    Text("Saved").foregroundStyle(.green)
+                    Text(L10n.t("Saved")).foregroundStyle(.green)
                 }
             }
             Text(LMStudioCredentials.isPresent
-                 ? "A token is stored and sent with every request."
-                 : "Only needed when LM Studio's server requires a token (Developer → Server Settings). Without one, requests are sent with no Authorization header.")
+                 ? L10n.t("A token is stored and sent with every request.")
+                 : L10n.t("Only needed when LM Studio's server requires a token (Developer → Server Settings). Without one, requests are sent with no Authorization header."))
                 .foregroundStyle(.secondary)
         }
         .padding(.top, 2)

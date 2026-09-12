@@ -1094,6 +1094,7 @@ final class FirstRunCopyTests: XCTestCase {
                             switchAccount: { _ in true },
                             retry: { _ in },
                             resetPosition: {},
+                            quit: {},
                             updater: Updater())
     }
 

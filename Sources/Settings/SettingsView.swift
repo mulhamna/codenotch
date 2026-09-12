@@ -171,6 +171,7 @@ struct SettingsView: View {
     /// nothing would tell the notch to move, and the setting would only take
     /// effect the next time the edge changed.
     let resetPosition: () -> Void
+    let quit: () -> Void
     @ObservedObject var updater: Updater
     var ollamaRelay: OllamaActivityRelay? = nil
     var lmstudioMetrics: LMStudioMetrics? = nil
@@ -304,6 +305,22 @@ struct SettingsView: View {
             }
             .padding(.trailing, 14)
             .frame(height: SettingsView.headerHeight - SettingsView.sidebarInset)
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Button(role: .destructive, action: quit) {
+                Label {
+                    Text(L10n.t("Quit Codenotch"))
+                } icon: {
+                    SidebarIcon(systemName: "power", tint: .red)
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, 10)
+            .padding(.bottom, 10)
         }
         .frame(width: SettingsView.sidebarWidth)
         // Liquid Glass, the way System Settings draws its own floating

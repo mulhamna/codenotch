@@ -111,7 +111,7 @@ enum Sites {
             let reading = try DeepSeekUsage.reading(fromJSON: payload.summary)
             var windows = [LimitWindow(
                 id: "spend",
-                label: "Account usage (\(reading.currency))",
+                label: L10n.t("Account usage (\(reading.currency))"),
                 usedFraction: reading.usedFraction,
                 money: UsageMoneyBreakdown(currency: reading.currency,
                                            spent: reading.spent,

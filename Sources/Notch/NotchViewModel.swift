@@ -337,9 +337,7 @@ final class NotchViewModel: ObservableObject {
     /// orb sits past `shapeLength`, so the pair stay symmetric about the notch
     /// at every size and on every edge.
     var moveAlong: CGFloat {
-        guard orbHugsCorner else { return 0 }
-        return cornerCentreAlong - shapeLength
-            + NotchLayout.orbCornerOffset(corner: drawnCornerRadius)
+        shapeLength - orbAlong
     }
 
     /// The mirror of `trailingExtent` at the near end — the room the move
