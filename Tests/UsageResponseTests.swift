@@ -359,6 +359,65 @@ final class RefreshScheduleTests: XCTestCase {
     }
 }
 
+/// Which readings count as "a window just turned over". The schedule above is
+/// only as prompt as this answer is.
+@MainActor
+final class WindowRolloverTests: XCTestCase {
+    private let last = Date(timeIntervalSince1970: 1_787_900_000)
+    private var now: Date { last.addingTimeInterval(60) }
+
+    private func snapshot(resetsAt: Date?...) -> [ProviderSnapshot] {
+        [ProviderSnapshot(
+            id: "claude", displayName: "Claude", glyph: .claude,
+            fidelity: .official, status: .ok,
+            windows: resetsAt.enumerated().map { index, date in
+                LimitWindow(id: "w\(index)", label: "Current session",
+                            usedFraction: 0.68, resetsAt: date)
+            }
+        )]
+    }
+
+    func testAWindowThatTurnedOverSinceTheLastAttemptIsDue() {
+        XCTAssertTrue(UsageStore.hasWindowRolledOver(
+            in: snapshot(resetsAt: last.addingTimeInterval(30)), since: last, at: now))
+    }
+
+    /// The boundary is still ahead: nothing has changed yet, and polling now
+    /// would spend a request to be told so.
+    func testAWindowStillRunningIsNotDue() {
+        XCTAssertFalse(UsageStore.hasWindowRolledOver(
+            in: snapshot(resetsAt: now.addingTimeInterval(30)), since: last, at: now))
+    }
+
+    /// The one that keeps this from becoming a permanent full-rate poll: once a
+    /// refresh has been attempted past the boundary, the same rollover must not
+    /// ask for another.
+    func testARolloverIsOnlyDueOnce() {
+        let windows = snapshot(resetsAt: last.addingTimeInterval(30))
+        XCTAssertTrue(UsageStore.hasWindowRolledOver(in: windows, since: last, at: now))
+        XCTAssertFalse(UsageStore.hasWindowRolledOver(in: windows, since: now, at: now.addingTimeInterval(60)))
+    }
+
+    func testAWindowWithoutAResetTimeIsNeverDue() {
+        XCTAssertFalse(UsageStore.hasWindowRolledOver(in: snapshot(resetsAt: nil), since: last, at: now))
+    }
+
+    /// A first run has nothing to compare against and must not read a rollover
+    /// into a window it is seeing for the first time.
+    func testNothingIsDueBeforeTheFirstAttempt() {
+        XCTAssertFalse(UsageStore.hasWindowRolledOver(
+            in: snapshot(resetsAt: last.addingTimeInterval(30)), since: nil, at: now))
+    }
+
+    /// Secondary windows count too: a weekly limit rolling over is the alert
+    /// people wait for most, and it is never the headline.
+    func testASecondaryWindowCountsAsWell() {
+        XCTAssertTrue(UsageStore.hasWindowRolledOver(
+            in: snapshot(resetsAt: now.addingTimeInterval(86_400), last.addingTimeInterval(30)),
+            since: last, at: now))
+    }
+}
+
 /// Some failures say something about the account rather than about the network.
 /// Dimming an old number through one of those would keep showing a figure that
 /// is no longer true — and, after an endpoint change, one from a source we no
