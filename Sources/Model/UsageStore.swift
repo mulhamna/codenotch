@@ -285,23 +285,44 @@ final class UsageStore: ObservableObject {
 
     /// Decides whether this tick is worth a request at all.
     private func tick() {
-        let waited = lastAttempt.map { pollingNow().timeIntervalSince($0) } ?? .greatestFiniteMagnitude
+        let now = pollingNow()
+        let waited = lastAttempt.map { now.timeIntervalSince($0) } ?? .greatestFiniteMagnitude
         guard Self.shouldRefresh(
             isBusy: isBusy(),
             sinceLastAttempt: waited,
-            idleInterval: idleRefreshInterval
+            idleInterval: idleRefreshInterval,
+            resetDue: hasWindowRolledOver(since: lastAttempt, at: now)
         ) else { return }
         refreshNow()
     }
 
-    /// Poll at full rate while something is running; otherwise wait out the
-    /// idle interval. Pure, so the schedule can be tested without a clock.
+    /// True when a window's `resetsAt` fell between the last attempt and now.
+    ///
+    /// That boundary is the one moment the numbers are certain to have moved,
+    /// and it is the moment a reset alert is owed — waiting out the idle
+    /// interval there is what made the alert arrive minutes late. It fires once
+    /// per rollover: the refresh it asks for puts `lastAttempt` past the
+    /// boundary, so the next tick no longer sees it.
+    private func hasWindowRolledOver(since last: Date?, at now: Date) -> Bool {
+        guard let last else { return false }
+        return snapshots.contains { snapshot in
+            snapshot.windows.contains { window in
+                guard let resetsAt = window.resetsAt else { return false }
+                return resetsAt > last && resetsAt <= now
+            }
+        }
+    }
+
+    /// Poll at full rate while something is running or a window has just rolled
+    /// over; otherwise wait out the idle interval. Pure, so the schedule can be
+    /// tested without a clock.
     static func shouldRefresh(
         isBusy: Bool,
         sinceLastAttempt: TimeInterval,
-        idleInterval: TimeInterval
+        idleInterval: TimeInterval,
+        resetDue: Bool = false
     ) -> Bool {
-        isBusy || sinceLastAttempt >= idleInterval
+        isBusy || resetDue || sinceLastAttempt >= idleInterval
     }
 
     func refreshNow() {
