@@ -343,6 +343,20 @@ final class RefreshScheduleTests: XCTestCase {
             idleInterval: idle
         ))
     }
+
+    /// The moment a limit window rolls over is the moment the reset alert is
+    /// owed, and it lands squarely inside the idle stretch — you are not running
+    /// anything precisely because you were waiting for it. Waiting out the idle
+    /// interval there is what made the alert arrive minutes late.
+    @MainActor
+    func testARolledOverWindowPollsInsideTheIdleInterval() {
+        XCTAssertTrue(UsageStore.shouldRefresh(
+            isBusy: false, sinceLastAttempt: 60, idleInterval: idle, resetDue: true
+        ))
+        XCTAssertFalse(UsageStore.shouldRefresh(
+            isBusy: false, sinceLastAttempt: 60, idleInterval: idle, resetDue: false
+        ))
+    }
 }
 
 /// Some failures say something about the account rather than about the network.
