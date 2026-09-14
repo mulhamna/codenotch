@@ -54,7 +54,8 @@ final class NotchWindowController {
     /// dismissing a tooltip, and doing it the instant the pointer strays feels
     /// twitchy rather than responsive.
     private let foldGrace: TimeInterval = 0.45
-    private var foldWork: DispatchWorkItem?
+    /// Pending work item that folds the notch after hover leaves.
+    var foldWork: DispatchWorkItem?
     /// Folds the notch again after a peek, when nothing else is holding it open.
     private var peekWork: DispatchWorkItem?
     /// The session a peek is currently offering, and how long the offer lasts.
@@ -537,13 +538,13 @@ final class NotchWindowController {
         return CGPoint(x: mouse.x - frame.minX, y: frame.maxY - mouse.y)
     }
 
-    private func cursorMoved() {
+    func cursorMoved() {
         guard let panel, !isOptionDragging else { return }
         let local = localCursor(in: panel.frame)
         let overTooltip = model.hoveredIndex
             .flatMap(tooltipRect(index:))
             .map { model.isExpanded && $0.contains(local) } ?? false
-        setExpanded(liveRect.contains(local) || overTooltip, ignoreAlwaysOn: isFullScreenActive())
+        setExpanded(liveRect.contains(local) || overTooltip, ignoreAlwaysOn: foldsForFullScreen && isFullScreenActive())
 
         var target: Int?
         if model.isExpanded, notchRect.contains(local) {
