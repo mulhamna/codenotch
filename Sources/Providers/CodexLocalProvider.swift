@@ -11,18 +11,24 @@ actor CodexLocalProvider: UsageProvider {
     private let session: URLSession
     nonisolated private let authURL: URL
     private let archive: UsageArchive
+    private let browserCache: CodexBrowserUsageCache?
+    private let browserFreshness: TimeInterval
     private var retryNoEarlierThan: Date?
 
     init(profile: CodexProfile = .default(),
          session: URLSession = .shared,
          authURL: URL? = nil,
-         archive: UsageArchive = UsageArchive()) {
+         archive: UsageArchive = UsageArchive(),
+         browserCache: CodexBrowserUsageCache? = CodexBrowserUsageCache(),
+         browserFreshness: TimeInterval = 30 * 60) {
         self.profile = profile
         self.id = profile.id
         self.displayName = profile.displayName
         self.session = session
         self.authURL = authURL ?? profile.authURL
         self.archive = archive
+        self.browserCache = browserCache
+        self.browserFreshness = browserFreshness
         // Recreating the provider or relaunching must not bypass the server's retry deadline.
         self.retryNoEarlierThan = archive.loadBackoffUntil(providerID: profile.id)
     }
@@ -43,62 +49,94 @@ actor CodexLocalProvider: UsageProvider {
         }
 
         // Codex can rotate its token between polls; this app never refreshes or writes it.
-        let credential = try CodexCredentials.load(from: authURL)
-        var request = URLRequest(
-            url: URL(string: "https://chatgpt.com/backend-api/wham/usage")!,
-            cachePolicy: .reloadIgnoringLocalCacheData,
-            timeoutInterval: 15
-        )
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(credential.accessToken)", forHTTPHeaderField: "Authorization")
-        request.setValue(credential.accountID, forHTTPHeaderField: "ChatGPT-Account-Id")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("no-cache, no-store", forHTTPHeaderField: "Cache-Control")
+        let credentialResult = Result { try CodexCredentials.load(from: authURL, now: now) }
+        switch credentialResult {
+        case .success(let credential):
+            var request = URLRequest(
+                url: URL(string: "https://chatgpt.com/backend-api/wham/usage")!,
+                cachePolicy: .reloadIgnoringLocalCacheData,
+                timeoutInterval: 15
+            )
+            request.httpMethod = "GET"
+            request.setValue("Bearer \(credential.accessToken)", forHTTPHeaderField: "Authorization")
+            request.setValue(credential.accountID, forHTTPHeaderField: "ChatGPT-Account-Id")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue("no-cache, no-store", forHTTPHeaderField: "Cache-Control")
 
-        let (data, response) = try await session.data(for: request)
-        let http = response as? HTTPURLResponse
-        let status = http?.statusCode ?? 0
-        if status == 401 || status == 403 { throw UsageProviderError.needsAuth }
-        if status == 429 {
-            let receivedAt = Date()
-            let delay = max(60, Self.retryAfter(from: http, now: receivedAt) ?? 0)
-            retryNoEarlierThan = receivedAt.addingTimeInterval(delay)
-            archive.saveBackoffUntil(retryNoEarlierThan, providerID: id)
-            throw UsageProviderError.rateLimited(retryAfter: delay)
+            let (data, response) = try await session.data(for: request)
+            let http = response as? HTTPURLResponse
+            let status = http?.statusCode ?? 0
+            if status == 401 || status == 403 {
+                if let snapshot = browserCacheSnapshot(now: now) {
+                    return snapshot
+                }
+                throw UsageProviderError.needsAuth
+            }
+            if status == 429 {
+                let receivedAt = Date()
+                let delay = max(60, Self.retryAfter(from: http, now: receivedAt) ?? 0)
+                retryNoEarlierThan = receivedAt.addingTimeInterval(delay)
+                archive.saveBackoffUntil(retryNoEarlierThan, providerID: id)
+                throw UsageProviderError.rateLimited(retryAfter: delay)
+            }
+            guard (200..<300).contains(status) else {
+                throw UsageProviderError.badResponse(status: status)
+            }
+
+            // Unused resets are a separate endpoint from the extra Spark / code-review
+            // windows. Start that fetch before parsing extras so a slow or empty
+            // extras payload cannot skip the credits row.
+            async let resetCredits = Self.fetchResetCredits(session: session, credential: credential)
+
+            let windows = try CodexUsage.windows(
+                from: data,
+                includeExtras: Preferences.storedShowCodexExtraLimits()
+            )
+
+            // The profile page's token statistics are the source for the chart and
+            // totals.
+            let profileUsage = try? await Self.fetchProfileUsage(
+                session: session, credential: credential
+            )
+            retryNoEarlierThan = nil
+            archive.saveBackoffUntil(nil, providerID: id)
+            return ProviderSnapshot(
+                id: id, displayName: displayName, glyph: glyph,
+                fidelity: .official, status: .ok, windows: windows,
+                // Named, not positional. `windows.first` would let Spark take the
+                // ring whenever primary is missing — extras are appended after the
+                // main pair, but a Spark-only payload still leads with spark.
+                headlineID: "primary",
+                // The weekly ring is the account weekly, never Spark's own weekly.
+                weeklyID: "secondary",
+                tokenUsage: profileUsage,
+                plan: CodexUsage.plan(from: data) ?? account()?.plan?.nonEmptyPlan,
+                resetCredits: await resetCredits
+            )
+
+        case .failure(let error):
+            if let snapshot = browserCacheSnapshot(now: now) {
+                return snapshot
+            }
+            throw error
         }
-        guard (200..<300).contains(status) else {
-            throw UsageProviderError.badResponse(status: status)
-        }
+    }
 
-        // Unused resets are a separate endpoint from the extra Spark / code-review
-        // windows. Start that fetch before parsing extras so a slow or empty
-        // extras payload cannot skip the credits row.
-        async let resetCredits = Self.fetchResetCredits(session: session, credential: credential)
+    private func browserCacheSnapshot(now: Date) -> ProviderSnapshot? {
+        guard let reading = browserCache?.read(now: now, includeExtras: Preferences.storedShowCodexExtraLimits()),
+              reading.isFresh(at: now, within: browserFreshness)
+        else { return nil }
 
-        let windows = try CodexUsage.windows(
-            from: data,
-            includeExtras: Preferences.storedShowCodexExtraLimits()
-        )
-
-        // The profile page's token statistics are the source for the chart and
-        // totals.
-        let profileUsage = try? await Self.fetchProfileUsage(
-            session: session, credential: credential
-        )
         retryNoEarlierThan = nil
         archive.saveBackoffUntil(nil, providerID: id)
         return ProviderSnapshot(
             id: id, displayName: displayName, glyph: glyph,
-            fidelity: .official, status: .ok, windows: windows,
-            // Named, not positional. `windows.first` would let Spark take the
-            // ring whenever primary is missing — extras are appended after the
-            // main pair, but a Spark-only payload still leads with spark.
+            fidelity: .official, status: .ok, windows: reading.windows,
             headlineID: "primary",
-            // The weekly ring is the account weekly, never Spark's own weekly.
             weeklyID: "secondary",
-            tokenUsage: profileUsage,
-            plan: CodexUsage.plan(from: data) ?? account()?.plan?.nonEmptyPlan,
-            resetCredits: await resetCredits
+            tokenUsage: nil,
+            plan: reading.plan ?? account()?.plan?.nonEmptyPlan,
+            resetCredits: nil
         )
     }
 
