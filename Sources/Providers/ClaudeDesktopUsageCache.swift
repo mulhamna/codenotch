@@ -59,16 +59,52 @@ struct ClaudeDesktopUsageCache: Sendable {
         }
     }
 
-    /// Where Claude Desktop keeps its HTTP cache.
-    let directory: URL
+    /// Where Claude Desktop and Chromium browsers keep HTTP caches.
+    let directories: [URL]
+
+    var directory: URL {
+        directories.first ?? ClaudeDesktopUsageCache.defaultDirectory
+    }
 
     static let defaultDirectory = FileManager.default
         .homeDirectoryForCurrentUser
         .appendingPathComponent("Library/Application Support/Claude/Cache/Cache_Data",
                                 isDirectory: true)
 
+    static func candidateDirectories(home: URL = FileManager.default.homeDirectoryForCurrentUser) -> [URL] {
+        var dirs: [URL] = [defaultDirectory]
+        let cacheRoot = home.appendingPathComponent("Library/Caches", isDirectory: true)
+        let browserSubpaths = [
+            "Google/Chrome",
+            "BraveSoftware/Brave-Browser",
+            "Microsoft Edge",
+            "Arc/User Data",
+            "Chromium",
+        ]
+        for sub in browserSubpaths {
+            let base = cacheRoot.appendingPathComponent(sub, isDirectory: true)
+            let defaultCache = base.appendingPathComponent("Default/Cache/Cache_Data", isDirectory: true)
+            if FileManager.default.fileExists(atPath: defaultCache.path) {
+                dirs.append(defaultCache)
+            }
+            if let contents = try? FileManager.default.contentsOfDirectory(atPath: base.path) {
+                for name in contents where name.hasPrefix("Profile ") {
+                    let profileCache = base.appendingPathComponent("\(name)/Cache/Cache_Data", isDirectory: true)
+                    if FileManager.default.fileExists(atPath: profileCache.path) {
+                        dirs.append(profileCache)
+                    }
+                }
+            }
+        }
+        return dirs
+    }
+
     init(directory: URL = ClaudeDesktopUsageCache.defaultDirectory) {
-        self.directory = directory
+        self.directories = [directory]
+    }
+
+    init(directories: [URL]) {
+        self.directories = directories
     }
 
     // MARK: - Limits
@@ -127,23 +163,32 @@ struct ClaudeDesktopUsageCache: Sendable {
     /// recent enough to show as live is the caller's call, and only the caller
     /// knows what it would fall through to.
     func read(organization: String, now: Date = Date()) -> Reading? {
-        // Newest first, so in practice this finds the live entry within a
-        // handful of files and the cap is never reached.
-        return recentEntries()
-            .lazy
-            .compactMap { reading(from: $0, organization: organization, now: now) }
-            .first
+        var freshest: Reading?
+        for directory in directories {
+            if let entry = recentEntries(in: directory)
+                .lazy
+                .compactMap({ reading(from: $0, organization: organization, now: now) })
+                .first {
+                if let current = freshest {
+                    if entry.capturedAt > current.capturedAt {
+                        freshest = entry
+                    }
+                } else {
+                    freshest = entry
+                }
+            }
+        }
+        return freshest
     }
 
     /// Candidate entry files, most recently modified first, capped.
-    private func recentEntries() -> [URL] {
+    private func recentEntries(in directory: URL) -> [URL] {
         let keys: [URLResourceKey] = [.contentModificationDateKey, .fileSizeKey, .isRegularFileKey]
         guard let names = try? FileManager.default.contentsOfDirectory(
             at: directory, includingPropertiesForKeys: keys,
             options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants]
         ) else {
-            // No Claude Desktop, no cache directory, or no permission to list
-            // it. All three mean the same thing to the caller.
+            // No cache directory or no permission to list it.
             return []
         }
 
