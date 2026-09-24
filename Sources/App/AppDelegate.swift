@@ -181,7 +181,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             preferences.$customEndpoints
                 .map { endpoints in
                     endpoints.filter(\.isEnabled).map {
-                        "\($0.id):\($0.name):\($0.baseURL):\($0.trackingUnit.rawValue):\($0.monthlyBudgetUSD ?? -1):\($0.currentSpendUSD ?? -1):\($0.monthlyBudgetTokensM ?? -1):\($0.currentTokensUsedM ?? -1):\($0.displayRemaining):\($0.showCurrency):\($0.iconPreset ?? ""):\($0.customIconFilename ?? ""):\($0.accentColorHex):\($0.selectedModel):\($0.usageSource.rawValue):\($0.usageURL ?? ""):\($0.usageRecordsPath ?? ""):\($0.usageModelField ?? ""):\($0.usageTokenField ?? ""):\($0.usageModelFilter ?? ""):\($0.usageAuthentication.rawValue)"
+                        "\($0.id):\($0.name):\($0.baseURL):\($0.trackingUnit.rawValue):\($0.monthlyBudgetUSD ?? -1):\($0.currentSpendUSD ?? -1):\($0.monthlyBudgetTokensM ?? -1):\($0.currentTokensUsedM ?? -1):\($0.displayRemaining):\($0.showCurrency):\($0.iconPreset ?? ""):\($0.customIconFilename ?? ""):\($0.accentColorHex):\($0.selectedModel):\($0.usageSource.rawValue):\($0.usagePreset?.rawValue ?? ""):\($0.usageURL ?? ""):\($0.usageRecordsPath ?? ""):\($0.usageModelField ?? ""):\($0.usageTokenField ?? ""):\($0.usageModelFilter ?? ""):\($0.usageAuthentication.rawValue)"
                     }
                 }
                 .removeDuplicates()

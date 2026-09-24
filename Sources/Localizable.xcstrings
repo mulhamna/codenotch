@@ -39523,6 +39523,87 @@
     },
     "Public": {
       "extractionState": "manual"
+    },
+    "Usage tracking": {
+      "extractionState": "manual"
+    },
+    "Usage preset": {
+      "extractionState": "manual"
+    },
+    "Custom JSON fields": {
+      "extractionState": "manual"
+    },
+    "Detect usage": {
+      "extractionState": "manual"
+    },
+    "LiteLLM": {
+      "extractionState": "manual"
+    },
+    "OpenRouter": {
+      "extractionState": "manual"
+    },
+    "New-API": {
+      "extractionState": "manual"
+    },
+    "vLLM": {
+      "extractionState": "manual"
+    },
+    "llama.cpp": {
+      "extractionState": "manual"
+    },
+    "Usage URL: %@": {
+      "extractionState": "manual"
+    },
+    "No usage URL for this base URL": {
+      "extractionState": "manual"
+    },
+    "Tokens since server start": {
+      "extractionState": "manual"
+    },
+    "USD spend": {
+      "extractionState": "manual"
+    },
+    "Quota units": {
+      "extractionState": "manual"
+    },
+    "LiteLLM key info may require a management credential; use Manual USD entry if unavailable.": {
+      "extractionState": "manual"
+    },
+    "Requires --metrics on llama-server": {
+      "extractionState": "manual"
+    },
+    "Detected usage format: %@. Save Endpoint to apply.": {
+      "extractionState": "manual"
+    },
+    "Authentication required to inspect usage route": {
+      "extractionState": "manual"
+    },
+    "Usage route unavailable or unreachable": {
+      "extractionState": "manual"
+    },
+    "No supported usage schema detected": {
+      "extractionState": "manual"
+    },
+    "Import Custom JSON...": {
+      "extractionState": "manual"
+    },
+    "Save JSON template...": {
+      "extractionState": "manual"
+    },
+    "Other usage source": {
+      "extractionState": "manual"
+    },
+    "Retry detection": {
+      "extractionState": "manual"
+    },
+    "Tokens Since Server Start": {
+      "extractionState": "manual"
+    },
+    "Spend This Month": {
+      "extractionState": "manual"
+    },
+    "Quota Used": {
+      "extractionState": "manual"
     }
   },
   "version": "1.0"

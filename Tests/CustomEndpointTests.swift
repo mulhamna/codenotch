@@ -270,4 +270,459 @@ final class CustomEndpointTests: XCTestCase {
         }
         XCTAssertEqual(millions, 0.009107, accuracy: 0.000000001)
     }
+    func testPresetParsersDistinguishZeroMissingAndUnits() {
+        func parse(_ preset: CustomEndpointUsagePreset, _ text: String) -> CustomEndpointPresetReading? {
+            CustomEndpointPresetUsage.parsePreset(preset, data: Data(text.utf8))
+        }
+        XCTAssertEqual(parse(.vllm, """
+            vllm:prompt_tokens_total{model="a"} 12000
+            vllm:prompt_tokens_total{model="b"} 0
+            vllm:generation_tokens_total{model="a"} 3000
+            vllm:generation_tokens_total{model="b"} 0
+            """), .tokens(15000))
+        XCTAssertEqual(parse(.vllm, "vllm:prompt_tokens_total 0\nvllm:generation_tokens_total 0"), .tokens(0))
+        XCTAssertEqual(parse(.vllm, "vllm:prompt_tokens_total 2\nvllm:generation_tokens_total 3"), .tokens(5),
+                       "a restart replaces uptime counters rather than creating a daily delta")
+        for invalid in [
+            "vllm:prompt_tokens_total 0",
+            "vllm:prompt_tokens_total NaN\nvllm:generation_tokens_total 0",
+            "vllm:prompt_tokens_total -1\nvllm:generation_tokens_total 0",
+            "vllm:prompt_tokens_total{model=\"a\"} 1\nvllm:prompt_tokens_total{model=\"a\"} 2\nvllm:generation_tokens_total 0",
+            "vllm:prompt_tokens_total_bucket 5\nvllm:generation_tokens_total 0"
+        ] {
+            XCTAssertNil(parse(.vllm, invalid), invalid)
+        }
+        XCTAssertEqual(parse(.llamaCpp, "llamacpp:prompt_tokens_total 8\nllamacpp:tokens_predicted_total 3"), .tokens(11))
+        XCTAssertEqual(parse(.openRouter, #"{"data":{"usage":90,"usage_monthly":3.5}}"#),
+                       .spendUSD(3.5, period: .month))
+        XCTAssertNil(parse(.openRouter, #"{"data":{"usage":90}}"#))
+        XCTAssertEqual(parse(.litellm, #"{"info":{"spend":4.12}}"#), .spendUSD(4.12, period: .lifetime))
+        XCTAssertEqual(parse(.newAPI, #"{"data":{"object":"token_usage","total_used":12345,"total_granted":1000000}}"#),
+                       .quota(used: 12345, granted: 1000000))
+        XCTAssertEqual(parse(.newAPI, #"{"data":{"object":"token_usage","total_used":0,"total_granted":100,"unlimited_quota":true}}"#),
+                       .quota(used: 0, granted: nil))
+        XCTAssertNil(parse(.newAPI, #"{"data":{"object":"token_usage","total_used":false}}"#))
+        XCTAssertNil(parse(.litellm, #"{"info":{"spend":true}}"#))
+    }
+
+    func testPresetURLCannotLeakCredentialsOrChangeOpenRouterOrigin() {
+        XCTAssertEqual(CustomEndpointPresetUsage.presetURL(.vllm, baseURL: "http://127.0.0.1:8000/proxy/v1")?.absoluteString,
+                       "http://127.0.0.1:8000/proxy/metrics")
+        XCTAssertEqual(CustomEndpointPresetUsage.presetURL(.openRouter, baseURL: "https://openrouter.ai/api/v1/")?.absoluteString,
+                       "https://openrouter.ai/api/v1/key")
+        XCTAssertNil(CustomEndpointPresetUsage.presetURL(.openRouter, baseURL: "https://evil.example/api/v1"))
+        XCTAssertNil(CustomEndpointPresetUsage.presetURL(.vllm, baseURL: "https://user:pass@example.com/v1"))
+        XCTAssertNil(CustomEndpointPresetUsage.presetURL(.vllm, baseURL: "https://example.com/v1?key=secret"))
+    }
+
+    func testPresetCodableKeepsCustomJSONMappingWhenSelectionChanges() throws {
+        let legacy = Data(#"{"id":"old","name":"Old","baseURL":"https://example.com/v1","usageSource":"jsonEndpoint","usageURL":"https://example.com/usage","usageRecordsPath":"items","usageModelField":"model","usageTokenField":"tokens"}"#.utf8)
+        var endpoint = try JSONDecoder().decode(CustomEndpoint.self, from: legacy)
+        XCTAssertNil(endpoint.usagePreset)
+        endpoint.usagePreset = .vllm
+        endpoint = try JSONDecoder().decode(CustomEndpoint.self, from: JSONEncoder().encode(endpoint))
+        XCTAssertEqual(endpoint.usagePreset, .vllm)
+        endpoint.usagePreset = nil
+        endpoint = try JSONDecoder().decode(CustomEndpoint.self, from: JSONEncoder().encode(endpoint))
+        XCTAssertEqual(endpoint.usageURL, "https://example.com/usage")
+        XCTAssertEqual(endpoint.usageRecordsPath, "items")
+        XCTAssertEqual(endpoint.usageTokenField, "tokens")
+        XCTAssertFalse(String(decoding: try JSONEncoder().encode(endpoint), as: UTF8.self).contains("usagePreset"))
+    }
+    func testPresetSnapshotUsesUsageEvenWhenModelsUnavailable() async throws {
+        let endpoint = CustomEndpoint(
+            name: "Local vLLM", baseURL: "http://127.0.0.1:8000/v1",
+            usageSource: .jsonEndpoint, usagePreset: .vllm
+        )
+        var count = 0
+        let network = presetNetwork { request in
+            count += 1
+            XCTAssertEqual(request.httpMethod, "GET")
+            XCTAssertEqual(request.url?.absoluteString, "http://127.0.0.1:8000/metrics")
+            XCTAssertNil(request.value(forHTTPHeaderField: "Authorization"))
+            return (200, Data("vllm:prompt_tokens_total 12000\nvllm:generation_tokens_total 3000".utf8))
+        }
+        let provider = CustomEndpointProvider(endpoint: endpoint, network: network, endpointLoader: { _ in endpoint })
+        let snapshot = try await provider.fetchSnapshot()
+        XCTAssertEqual(count, 1, "named usage must not probe /models")
+        XCTAssertEqual(snapshot.status, .ok)
+        XCTAssertEqual(snapshot.fidelity, .official)
+        XCTAssertEqual(snapshot.windows.first?.label, L10n.t("Tokens Since Server Start"))
+        XCTAssertEqual(snapshot.windows.first?.usedText, "15k")
+        XCTAssertNil(snapshot.windows.first?.usedFraction)
+        XCTAssertNil(snapshot.customUsageHistory)
+    }
+
+    func testPresetCounterRestartIsNotRenderedAsMonthlyHistory() async throws {
+        let endpoint = CustomEndpoint(
+            name: "Local", baseURL: "http://127.0.0.1:8000/v1",
+            usageSource: .jsonEndpoint, usagePreset: .vllm,
+            usageHistory: [CustomEndpointUsageDay(day: "2026-09-01", totalTokens: 15000)]
+        )
+        var count = 0
+        let network = presetNetwork { _ in
+            count += 1
+            let total = count == 1 ? 15000 : 5
+            return (200, Data("vllm:prompt_tokens_total \(total)\nvllm:generation_tokens_total 0".utf8))
+        }
+        let provider = CustomEndpointProvider(endpoint: endpoint, network: network, endpointLoader: { _ in endpoint })
+        let before = try await provider.fetchSnapshot()
+        let after = try await provider.fetchSnapshot()
+        XCTAssertEqual(before.windows.first?.usedText, "15k")
+        XCTAssertEqual(after.windows.first?.usedText, "5")
+        XCTAssertNil(after.customUsageHistory)
+    }
+    func testPresetNetworkRejectsUnauthorizedRedirectAndMalformedMetrics() async {
+        let endpoint = CustomEndpoint(
+            name: "Local", baseURL: "http://127.0.0.1:8000/v1",
+            usageSource: .jsonEndpoint, usagePreset: .vllm
+        )
+        for status in [401, 403, 302, 404, 200] {
+            var requests = 0
+            let network = presetNetwork { request in
+                requests += 1
+                XCTAssertEqual(request.url?.host, "127.0.0.1")
+                if status == 200 { return (status, Data("vllm:prompt_tokens_total 0".utf8)) }
+                return (status, Data())
+            }
+            let provider = CustomEndpointProvider(endpoint: endpoint, network: network, endpointLoader: { _ in endpoint })
+            do {
+                _ = try await provider.fetchSnapshot()
+                XCTFail("HTTP \(status) or missing metric succeeded")
+            } catch UsageProviderError.needsAuth {
+                XCTAssertTrue(status == 401 || status == 403)
+            } catch UsageProviderError.badResponse(let code) {
+                XCTAssertEqual(code, status == 200 ? 503 : status)
+            } catch {
+                XCTFail("Unexpected error \(error)")
+            }
+            XCTAssertEqual(requests, 1)
+        }
+    }
+
+    func testPresetRedirectNeverCarriesKeyToAnotherHost() async {
+        var requests = 0
+        let network = presetNetwork { request in
+            requests += 1
+            XCTAssertEqual(request.url?.host, "127.0.0.1")
+            XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "Bearer secret")
+            return (302, Data())
+        }
+        do {
+            _ = try await network.fetchPresetUsage(
+                .vllm, baseURL: "http://127.0.0.1:8000/v1",
+                apiKey: "secret", headerKey: "Authorization"
+            )
+            XCTFail("Redirect succeeded")
+        } catch UsageProviderError.badResponse {
+            XCTAssertEqual(requests, 1)
+        } catch {
+            XCTFail("Unexpected error \(error)")
+        }
+    }
+
+    func testPresetDetectionOnlySelectsKnownSchema() async {
+        var requests = 0
+        let network = presetNetwork { request in
+            requests += 1
+            XCTAssertEqual(request.url?.host, "127.0.0.1")
+            return (200, Data(#"{"data":{"usage":3}}"#.utf8))
+        }
+        let result = await network.detectPreset(
+            baseURL: "http://127.0.0.1:8000/v1", apiKey: "", headerKey: "Authorization"
+        )
+        XCTAssertEqual(result, .unsupported)
+        XCTAssertEqual(requests, 3, "probe /metrics only once, then New-API and LiteLLM")
+    }
+
+    func testPresetDetectionMatchedVLLMEvenWithZeroOrDelayed() async {
+        let network = presetNetwork { request in
+            if request.url?.path == "/metrics" {
+                return (200, Data("vllm:prompt_tokens_total 12000\nvllm:generation_tokens_total 3000\n".utf8))
+            }
+            return (404, Data())
+        }
+        let result = await network.detectPreset(
+            baseURL: "http://127.0.0.1:8000/v1", apiKey: "", headerKey: "Authorization"
+        )
+        XCTAssertEqual(result, .matched(.vllm))
+    }
+
+    func testPresetDetectionMatchedZeroCounters() async {
+        let network = presetNetwork { request in
+            if request.url?.path == "/metrics" {
+                return (200, Data("vllm:prompt_tokens_total 0\nvllm:generation_tokens_total 0\n".utf8))
+            }
+            return (404, Data())
+        }
+        let result = await network.detectPreset(
+            baseURL: "http://127.0.0.1:8000/v1", apiKey: "", headerKey: "Authorization"
+        )
+        XCTAssertEqual(result, .matched(.vllm))
+    }
+
+    func testPresetDetectionNeedsAuth() async {
+        let network = presetNetwork { _ in
+            (401, Data())
+        }
+        let result = await network.detectPreset(
+            baseURL: "http://127.0.0.1:8000/v1", apiKey: "", headerKey: "Authorization"
+        )
+        XCTAssertEqual(result, .needsAuth)
+    }
+
+    func testPresetDetectionUnavailableOnServerError() async {
+        let network = presetNetwork { _ in
+            (500, Data())
+        }
+        let result = await network.detectPreset(
+            baseURL: "http://127.0.0.1:8000/v1", apiKey: "", headerKey: "Authorization"
+        )
+        XCTAssertEqual(result, .unavailable)
+    }
+
+    func testPresetDetectionGenericModelsJSONDoesNotMatch() async {
+        let network = presetNetwork { request in
+            return (200, Data(#"{"object":"list","data":[{"id":"gpt-4o","object":"model"}]}"#.utf8))
+        }
+        let result = await network.detectPreset(
+            baseURL: "http://127.0.0.1:8000/v1", apiKey: "", headerKey: "Authorization"
+        )
+        XCTAssertEqual(result, .unsupported)
+    }
+
+    func testCustomEndpointJSONPresetFileImport() throws {
+        let json = """
+        {
+          "version": 1,
+          "unit": "tokens",
+          "usageURL": "https://proxy.example.com/usage",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens",
+          "modelFilter": "optional-model-name"
+        }
+        """
+        let file = try CustomEndpointJSONPresetFile.importMapping(Data(json.utf8), baseURL: "https://proxy.example.com/v1")
+        XCTAssertEqual(file.version, 1)
+        XCTAssertEqual(file.unit, "tokens")
+        XCTAssertEqual(file.usageURL, "https://proxy.example.com/usage")
+        XCTAssertEqual(file.recordsPath, "model_token_usage")
+        XCTAssertEqual(file.modelField, "model")
+        XCTAssertEqual(file.tokenField, "total_tokens")
+        XCTAssertEqual(file.modelFilter, "optional-model-name")
+    }
+
+    func testCustomEndpointJSONPresetFileImportWithoutModelFilter() throws {
+        let json = """
+        {
+          "version": 1,
+          "unit": "tokens",
+          "usageURL": "https://proxy.example.com/usage",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens"
+        }
+        """
+        let file = try CustomEndpointJSONPresetFile.importMapping(Data(json.utf8), baseURL: "https://proxy.example.com/v1")
+        XCTAssertNil(file.modelFilter)
+    }
+
+    func testCustomEndpointJSONPresetFileRejectsBadVersionOrUnit() {
+        let badVersion = """
+        {
+          "version": 2,
+          "unit": "tokens",
+          "usageURL": "https://proxy.example.com/usage",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens"
+        }
+        """
+        XCTAssertThrowsError(try CustomEndpointJSONPresetFile.importMapping(Data(badVersion.utf8), baseURL: "https://proxy.example.com/v1"))
+
+        let badUnit = """
+        {
+          "version": 1,
+          "unit": "usd",
+          "usageURL": "https://proxy.example.com/usage",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens"
+        }
+        """
+        XCTAssertThrowsError(try CustomEndpointJSONPresetFile.importMapping(Data(badUnit.utf8), baseURL: "https://proxy.example.com/v1"))
+    }
+
+    func testCustomEndpointJSONPresetFileRejectsUnknownFieldsAndCredentials() {
+        let unknownField = """
+        {
+          "version": 1,
+          "unit": "tokens",
+          "usageURL": "https://proxy.example.com/usage",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens",
+          "apiKey": "secret"
+        }
+        """
+        XCTAssertThrowsError(try CustomEndpointJSONPresetFile.importMapping(Data(unknownField.utf8), baseURL: "https://proxy.example.com/v1"))
+    }
+
+    func testCustomEndpointJSONPresetFileRejectsCrossOriginAndUserInfo() {
+        let crossHost = """
+        {
+          "version": 1,
+          "unit": "tokens",
+          "usageURL": "https://other.example.com/usage",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens"
+        }
+        """
+        XCTAssertThrowsError(try CustomEndpointJSONPresetFile.importMapping(Data(crossHost.utf8), baseURL: "https://proxy.example.com/v1"))
+
+        let withQuery = """
+        {
+          "version": 1,
+          "unit": "tokens",
+          "usageURL": "https://proxy.example.com/usage?foo=bar",
+          "recordsPath": "model_token_usage",
+          "modelField": "model",
+          "tokenField": "total_tokens"
+        }
+        """
+        XCTAssertThrowsError(try CustomEndpointJSONPresetFile.importMapping(Data(withQuery.utf8), baseURL: "https://proxy.example.com/v1"))
+    }
+
+    func testParseJSONUsageEmptyRecordsReturnsZero() {
+        let json = #"{"records":[]}"#
+        let parsed = CustomEndpointNetwork.parseJSONUsage(
+            data: Data(json.utf8),
+            recordsPath: "records",
+            modelField: "model",
+            tokenField: "tokens",
+            modelFilter: nil
+        )
+        XCTAssertEqual(parsed, 0.0)
+    }
+
+    func testParseJSONUsageRejectsBooleansAndMissingField() {
+        let jsonBool = #"{"records":[{"model":"m","tokens":true}]}"#
+        let parsedBool = CustomEndpointNetwork.parseJSONUsage(
+            data: Data(jsonBool.utf8),
+            recordsPath: "records",
+            modelField: "model",
+            tokenField: "tokens",
+            modelFilter: nil
+        )
+        XCTAssertNil(parsedBool)
+
+        let jsonMissing = #"{"records":[{"model":"m"}]}"#
+        let parsedMissing = CustomEndpointNetwork.parseJSONUsage(
+            data: Data(jsonMissing.utf8),
+            recordsPath: "records",
+            modelField: "model",
+            tokenField: "tokens",
+            modelFilter: nil
+        )
+        XCTAssertNil(parsedMissing)
+    }
+
+    func testPreferencesReconciliationPreservesSampledReadingsWhenMappingUnchanged() {
+        let defaults = UserDefaults(suiteName: "testPreferencesReconciliation")!
+        defaults.removePersistentDomain(forName: "testPreferencesReconciliation")
+        let endpoint = CustomEndpoint(
+            id: "ep-1",
+            name: "Original",
+            baseURL: "http://127.0.0.1:8000/v1",
+            usageSource: .jsonEndpoint,
+            usageURL: "http://127.0.0.1:8000/usage",
+            usageRecordsPath: "records",
+            usageModelField: "model",
+            usageTokenField: "tokens",
+            trackingUnit: .tokens,
+            currentTokensUsedM: 0.0,
+            usageHistory: []
+        )
+        let prefs = Preferences(defaults: defaults)
+        prefs.addCustomEndpoint(endpoint)
+
+        // Simulate background provider sampling 15,000 tokens (0.015M)
+        var stored = endpoint
+        stored.currentTokensUsedM = 0.015
+        stored.usageHistory = [CustomEndpointUsageDay(day: "2026-09-24", totalTokens: 15000)]
+        Preferences.updateStoredCustomEndpoint(stored, defaults: defaults)
+
+        // Settings edits only the name and saves
+        var edited = endpoint
+        edited.name = "Renamed"
+        prefs.updateCustomEndpoint(edited)
+
+        let updated = prefs.customEndpoints.first(where: { $0.id == "ep-1" })
+        XCTAssertEqual(updated?.name, "Renamed")
+        XCTAssertEqual(updated?.currentTokensUsedM, 0.015)
+        XCTAssertEqual(updated?.usageHistory.count, 1)
+    }
+
+    func testPreferencesReconciliationDoesNotMergeWhenMappingChanged() {
+        let defaults = UserDefaults(suiteName: "testPreferencesReconciliationChanged")!
+        defaults.removePersistentDomain(forName: "testPreferencesReconciliationChanged")
+        let endpoint = CustomEndpoint(
+            id: "ep-2",
+            name: "Original",
+            baseURL: "http://127.0.0.1:8000/v1",
+            usageSource: .jsonEndpoint,
+            usageURL: "http://127.0.0.1:8000/usage",
+            usageRecordsPath: "records",
+            usageModelField: "model",
+            usageTokenField: "tokens",
+            trackingUnit: .tokens,
+            currentTokensUsedM: 0.0,
+            usageHistory: []
+        )
+        let prefs = Preferences(defaults: defaults)
+        prefs.addCustomEndpoint(endpoint)
+
+        // Background provider sampled old mapping
+        var stored = endpoint
+        stored.currentTokensUsedM = 0.015
+        stored.usageHistory = [CustomEndpointUsageDay(day: "2026-09-24", totalTokens: 15000)]
+        Preferences.updateStoredCustomEndpoint(stored, defaults: defaults)
+
+        // User imported new mapping (usageURL changed) with cleared readings
+        var edited = endpoint
+        edited.usageURL = "http://127.0.0.1:8000/new-usage"
+        edited.currentTokensUsedM = 0.0
+        edited.usageHistory = []
+        prefs.updateCustomEndpoint(edited)
+
+        let updated = prefs.customEndpoints.first(where: { $0.id == "ep-2" })
+        XCTAssertEqual(updated?.usageURL, "http://127.0.0.1:8000/new-usage")
+        XCTAssertEqual(updated?.currentTokensUsedM, 0.0)
+        XCTAssertEqual(updated?.usageHistory.count, 0)
+    }
+
+    private func presetNetwork(_ handler: @escaping (URLRequest) -> (Int, Data)) -> CustomEndpointNetwork {
+        PresetUsageStubProtocol.handler = handler
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [PresetUsageStubProtocol.self]
+        return CustomEndpointNetwork(session: URLSession(configuration: configuration))
+    }
+}
+
+private final class PresetUsageStubProtocol: URLProtocol {
+    static var handler: ((URLRequest) -> (Int, Data))!
+    override class func canInit(with request: URLRequest) -> Bool { true }
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override func startLoading() {
+        let (status, data) = Self.handler(request)
+        client?.urlProtocol(self, didReceive: HTTPURLResponse(
+            url: request.url!, statusCode: status, httpVersion: nil,
+            headerFields: status == 302 ? ["Location": "https://evil.example/metrics"] : nil
+        )!, cacheStoragePolicy: .notAllowed)
+        client?.urlProtocol(self, didLoad: data)
+        client?.urlProtocolDidFinishLoading(self)
+    }
+    override func stopLoading() {}
 }
