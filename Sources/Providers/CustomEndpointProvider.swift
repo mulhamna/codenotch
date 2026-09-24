@@ -17,11 +17,217 @@ private final class NoRedirects: NSObject, URLSessionTaskDelegate, Sendable {
         completionHandler(nil)
     }
 }
+public enum CustomEndpointDetectionResult: Equatable, Sendable {
+    case matched(CustomEndpointUsagePreset)
+    case needsAuth
+    case unavailable
+    case unsupported
+}
 
 public actor CustomEndpointNetwork {
     public static let shared = CustomEndpointNetwork()
 
     private let noRedirects = NoRedirects()
+    private let session: URLSession
+
+    public init(session: URLSession = .shared) {
+        self.session = session
+    }
+
+    private enum RawHTTPResult {
+        case success(Data)
+        case needsAuth
+        case notFound
+        case unavailable
+    }
+
+    private func requestRaw(url: URL, apiKey: String, headerKey: String) async -> RawHTTPResult {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 6
+        let key = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !key.isEmpty {
+            let header = headerKey.trimmingCharacters(in: .whitespacesAndNewlines)
+            if header.lowercased() == "authorization" && !key.lowercased().hasPrefix("bearer ") {
+                request.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
+            } else {
+                request.setValue(key, forHTTPHeaderField: header.isEmpty ? "Authorization" : header)
+            }
+        }
+        do {
+            let (data, response) = try await session.data(for: request, delegate: noRedirects)
+            guard let http = response as? HTTPURLResponse else {
+                return .unavailable
+            }
+            switch http.statusCode {
+            case 200...299:
+                return .success(data)
+            case 401, 403:
+                return .needsAuth
+            case 404:
+                return .notFound
+            default:
+                return .unavailable
+            }
+        } catch {
+            return .unavailable
+        }
+    }
+
+    private func presetResponse(url: URL, apiKey: String, headerKey: String) async throws -> Data {
+        let result = await requestRaw(url: url, apiKey: apiKey, headerKey: headerKey)
+        switch result {
+        case .success(let data):
+            return data
+        case .needsAuth:
+            throw UsageProviderError.needsAuth
+        case .notFound:
+            throw UsageProviderError.badResponse(status: 404)
+        case .unavailable:
+            throw UsageProviderError.badResponse(status: 503)
+        }
+    }
+
+    func fetchPresetUsage(
+        _ preset: CustomEndpointUsagePreset,
+        baseURL: String,
+        apiKey: String,
+        headerKey: String
+    ) async throws -> CustomEndpointPresetReading {
+        guard let url = CustomEndpointPresetUsage.presetURL(preset, baseURL: baseURL) else {
+            throw UsageProviderError.badResponse(status: 400)
+        }
+        let data = try await presetResponse(url: url, apiKey: apiKey, headerKey: headerKey)
+        guard let reading = CustomEndpointPresetUsage.parsePreset(preset, data: data) else {
+            throw UsageProviderError.badResponse(status: 503)
+        }
+        return reading
+    }
+
+    func detectPreset(
+        baseURL: String,
+        apiKey: String,
+        headerKey: String
+    ) async -> CustomEndpointDetectionResult {
+        // Validate base URL first; never probe a base with userinfo, query, or fragment
+        let trimmed = baseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let baseComponents = URLComponents(string: trimmed),
+              let scheme = baseComponents.scheme?.lowercased(),
+              (scheme == "http" || scheme == "https"),
+              let host = baseComponents.host, !host.isEmpty,
+              baseComponents.user == nil, baseComponents.password == nil,
+              baseComponents.query == nil, baseComponents.fragment == nil else {
+            return .unsupported
+        }
+
+        // Candidate endpoints: OpenRouter (/api/v1/key if canonical), /metrics, New-API (/api/usage/token), LiteLLM (/key/info)
+        enum ProbeTarget: Hashable {
+            case openRouter(URL)
+            case metrics(URL)
+            case newAPI(URL)
+            case liteLLM(URL)
+        }
+
+        var targets: [ProbeTarget] = []
+        if let openRouterURL = CustomEndpointPresetUsage.presetURL(.openRouter, baseURL: baseURL) {
+            targets.append(.openRouter(openRouterURL))
+        }
+        if let metricsURL = CustomEndpointPresetUsage.presetURL(.vllm, baseURL: baseURL) {
+            targets.append(.metrics(metricsURL))
+        }
+        if let newAPIURL = CustomEndpointPresetUsage.presetURL(.newAPI, baseURL: baseURL) {
+            targets.append(.newAPI(newAPIURL))
+        }
+        if let liteLLMURL = CustomEndpointPresetUsage.presetURL(.litellm, baseURL: baseURL) {
+            targets.append(.liteLLM(liteLLMURL))
+        }
+
+        if targets.isEmpty {
+            return .unsupported
+        }
+
+        var results: [ProbeTarget: RawHTTPResult] = [:]
+        await withTaskGroup(of: (ProbeTarget, RawHTTPResult).self) { group in
+            for target in targets {
+                let targetURL: URL
+                switch target {
+                case .openRouter(let url), .metrics(let url), .newAPI(let url), .liteLLM(let url):
+                    targetURL = url
+                }
+                group.addTask {
+                    if Task.isCancelled { return (target, .unavailable) }
+                    let res = await self.requestRaw(url: targetURL, apiKey: apiKey, headerKey: headerKey)
+                    return (target, res)
+                }
+            }
+            for await (target, res) in group {
+                results[target] = res
+            }
+        }
+
+        if Task.isCancelled {
+            return .unavailable
+        }
+
+        // Evaluate in priority order: OpenRouter, vLLM, llamaCpp, New-API, LiteLLM
+        if let openRouterTarget = targets.first(where: { if case .openRouter = $0 { return true }; return false }),
+           let res = results[openRouterTarget] {
+            if case .success(let data) = res, CustomEndpointPresetUsage.parsePreset(.openRouter, data: data) != nil {
+                return .matched(.openRouter)
+            }
+        }
+
+        if let metricsTarget = targets.first(where: { if case .metrics = $0 { return true }; return false }),
+           let res = results[metricsTarget] {
+            if case .success(let data) = res {
+                if CustomEndpointPresetUsage.parsePreset(.vllm, data: data) != nil {
+                    return .matched(.vllm)
+                }
+                if CustomEndpointPresetUsage.parsePreset(.llamaCpp, data: data) != nil {
+                    return .matched(.llamaCpp)
+                }
+            }
+        }
+
+        if let newAPITarget = targets.first(where: { if case .newAPI = $0 { return true }; return false }),
+           let res = results[newAPITarget] {
+            if case .success(let data) = res, CustomEndpointPresetUsage.parsePreset(.newAPI, data: data) != nil {
+                return .matched(.newAPI)
+            }
+        }
+
+        if let liteLLMTarget = targets.first(where: { if case .liteLLM = $0 { return true }; return false }),
+           let res = results[liteLLMTarget] {
+            if case .success(let data) = res, CustomEndpointPresetUsage.parsePreset(.litellm, data: data) != nil {
+                return .matched(.litellm)
+            }
+        }
+
+        // No match found. Classify:
+        // 1. Any 401/403 -> .needsAuth
+        // 2. Any transport failure, redirect, or non-404 non-2xx -> .unavailable
+        // 3. Otherwise (all 404 or malformed 2xx) -> .unsupported
+        var hasNeedsAuth = false
+        var hasUnavailable = false
+        for res in results.values {
+            switch res {
+            case .needsAuth:
+                hasNeedsAuth = true
+            case .unavailable:
+                hasUnavailable = true
+            case .notFound, .success:
+                break
+            }
+        }
+
+        if hasNeedsAuth {
+            return .needsAuth
+        }
+        if hasUnavailable {
+            return .unavailable
+        }
+        return .unsupported
+    }
 
     /// What a plausible `/models` reply holds. Anything past this is not a list
     /// someone is going to pick from.
@@ -114,32 +320,21 @@ public actor CustomEndpointNetwork {
         modelField: String,
         tokenField: String,
         modelFilter: String?
-    ) async -> Double? {
-        guard let url = URL(string: usageURL), CustomEndpoint.isValidURL(usageURL) else { return nil }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.timeoutInterval = 6.0
-        let trimmedKey = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !trimmedKey.isEmpty {
-            let header = headerKey.trimmingCharacters(in: .whitespacesAndNewlines)
-            if header.lowercased() == "authorization" && !trimmedKey.lowercased().hasPrefix("bearer ") {
-                request.setValue("Bearer \(trimmedKey)", forHTTPHeaderField: "Authorization")
-            } else {
-                request.setValue(trimmedKey, forHTTPHeaderField: header.isEmpty ? "Authorization" : header)
-            }
+    ) async throws -> Double {
+        guard let url = URL(string: usageURL), CustomEndpoint.isValidURL(usageURL) else {
+            throw UsageProviderError.badResponse(status: 400)
         }
-        guard let (data, response) = try? await URLSession.shared.data(for: request, delegate: noRedirects),
-              let http = response as? HTTPURLResponse,
-              (200...299).contains(http.statusCode) else {
-            return nil
-        }
-        return Self.parseJSONUsage(
+        let data = try await presetResponse(url: url, apiKey: apiKey, headerKey: headerKey)
+        guard let tokens = Self.parseJSONUsage(
             data: data,
             recordsPath: recordsPath,
             modelField: modelField,
             tokenField: tokenField,
             modelFilter: modelFilter
-        )
+        ) else {
+            throw UsageProviderError.badResponse(status: 503)
+        }
+        return tokens
     }
 
     static func parseJSONUsage(
@@ -149,21 +344,38 @@ public actor CustomEndpointNetwork {
         tokenField: String,
         modelFilter: String?
     ) -> Double? {
-        guard let root = try? JSONSerialization.jsonObject(with: data),
-              let records = value(at: recordsPath, in: root) as? [[String: Any]],
-              !records.isEmpty else { return nil }
+        guard let root = try? JSONSerialization.jsonObject(with: data) else { return nil }
+        let recordsVal = recordsPath.isEmpty ? root : value(at: recordsPath, in: root)
+        guard let records = recordsVal as? [[String: Any]] else { return nil }
+        if records.isEmpty {
+            return 0.0
+        }
         let selected = records.filter { record in
             guard let modelFilter, !modelFilter.isEmpty else { return true }
             return (value(at: modelField, in: record) as? String) == modelFilter
         }
         guard !selected.isEmpty else { return nil }
-        let tokens = selected.compactMap { (value(at: tokenField, in: $0) as? NSNumber)?.doubleValue }
-        guard tokens.count == selected.count else { return nil }
-        return tokens.reduce(0, +) / 1_000_000
+        var totalTokens: Double = 0.0
+        for record in selected {
+            guard let rawVal = value(at: tokenField, in: record) else { return nil }
+            // Reject booleans (which are NSNumbers in Objective-C runtime bridge)
+            if let num = rawVal as? NSNumber {
+                if CFGetTypeID(num) == CFBooleanGetTypeID() {
+                    return nil
+                }
+                let d = num.doubleValue
+                guard d.isFinite, d >= 0 else { return nil }
+                totalTokens += d
+            } else {
+                return nil
+            }
+        }
+        return totalTokens / 1_000_000
     }
 
     private static func value(at path: String, in root: Any) -> Any? {
-        path.split(separator: ".").reduce(root) { value, component in
+        if path.isEmpty { return root }
+        return path.split(separator: ".").reduce(root) { value, component in
             if let object = value as? [String: Any] {
                 return object[String(component)]
             }
@@ -221,11 +433,20 @@ actor CustomEndpointProvider: UsageProvider {
     nonisolated let id: String
     private let endpointID: String
     private let session: URLSession
+    private let network: CustomEndpointNetwork
+    private let endpointLoader: @Sendable (String) -> CustomEndpoint?
 
-    init(endpoint: CustomEndpoint, session: URLSession = .shared) {
+    init(
+        endpoint: CustomEndpoint,
+        session: URLSession = .shared,
+        network: CustomEndpointNetwork = .shared,
+        endpointLoader: @escaping @Sendable (String) -> CustomEndpoint? = { CustomEndpointProvider.storedEndpoint(id: $0) }
+    ) {
         self.endpointID = endpoint.id
         self.id = endpoint.providerID
         self.session = session
+        self.network = network
+        self.endpointLoader = endpointLoader
     }
 
     nonisolated static func storedEndpoint(id: String) -> CustomEndpoint? {
@@ -302,7 +523,7 @@ actor CustomEndpointProvider: UsageProvider {
     }
 
     func fetchSnapshot() async throws -> ProviderSnapshot {
-        guard var current = Self.storedEndpoint(id: endpointID) else {
+        guard var current = endpointLoader(endpointID) else {
             throw UsageProviderError.needsAuth
         }
         guard current.isEnabled else {
@@ -310,6 +531,48 @@ actor CustomEndpointProvider: UsageProvider {
         }
         guard CustomEndpoint.isValidURL(current.baseURL) else {
             throw UsageProviderError.badResponse(status: 400)
+        }
+        if current.usageSource == .jsonEndpoint, let preset = current.usagePreset {
+            let key = current.usageAuthentication == .apiKey ? (current.apiKey ?? "") : ""
+            let reading = try await network.fetchPresetUsage(
+                preset, baseURL: current.baseURL, apiKey: key, headerKey: current.headerKey
+            )
+            let window: LimitWindow
+            switch reading {
+            case .tokens(let tokens):
+                let text = tokens > 0 && tokens < 1_000
+                    ? "\(tokens)"
+                    : CustomEndpoint.formatTokenMillions(Double(tokens) / 1_000_000)
+                window = LimitWindow(
+                    id: "preset-tokens", label: L10n.t("Tokens Since Server Start"),
+                    usedText: text, detail: String(format: L10n.t("%@ tokens"), text),
+                    prefersUsedText: true
+                )
+            case .spendUSD(let amount, let period):
+                let text = String(format: "$%.2f", amount)
+                window = LimitWindow(
+                    id: "preset-spend",
+                    label: L10n.t(period == .month ? "Spend This Month" : "Total Spend"),
+                    usedText: text, detail: text, prefersUsedText: true
+                )
+            case .quota(let used, let granted):
+                let text = "\(used)"
+                let fraction = granted.flatMap { $0 > 0 ? Double(used) / Double($0) : nil }
+                window = LimitWindow(
+                    id: "preset-quota", label: L10n.t("Quota Used"),
+                    usedFraction: fraction, usedText: text,
+                    detail: granted.flatMap { $0 > 0 ? "\(used) / \($0)" : nil } ?? text,
+                    prefersUsedText: true
+                )
+            }
+            var snapshot = ProviderSnapshot(
+                id: id, displayName: current.name,
+                glyph: current.iconPreset.flatMap(ProviderGlyph.init(rawValue:)) ?? .openai,
+                fidelity: .official, status: .ok, windows: [window],
+                headlineID: window.id, weeklyID: nil, block: nil, kind: .usage
+            )
+            snapshot.customIconFilename = current.customIconFilename
+            return snapshot
         }
 
         let needsUsageKey = current.usageSource != .jsonEndpoint
@@ -322,7 +585,7 @@ actor CustomEndpointProvider: UsageProvider {
            let recordsPath = current.usageRecordsPath,
            let modelField = current.usageModelField,
            let tokenField = current.usageTokenField {
-            usageTokens = await CustomEndpointNetwork.shared.fetchJSONUsage(
+            usageTokens = try await CustomEndpointNetwork.shared.fetchJSONUsage(
                 usageURL: usageURL,
                 apiKey: apiKey,
                 headerKey: current.headerKey,
@@ -349,7 +612,6 @@ actor CustomEndpointProvider: UsageProvider {
                 throw UsageProviderError.badResponse(status: 503)
             }
         }
-
         if let tokens = usageTokens {
             let totalTokens = max(0, Int((tokens * 1_000_000).rounded()))
             let day = Self.usageDayKey()

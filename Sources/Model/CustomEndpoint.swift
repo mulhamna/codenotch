@@ -80,6 +80,7 @@ public struct CustomEndpoint: Identifiable, Codable, Equatable, Sendable {
     public var iconPreset: String?
     public var customIconFilename: String?
     public var usageSource: CustomEndpointUsageSource
+    public var usagePreset: CustomEndpointUsagePreset?
     public var usageURL: String?
     public var usageRecordsPath: String?
     public var usageModelField: String?
@@ -110,6 +111,7 @@ public struct CustomEndpoint: Identifiable, Codable, Equatable, Sendable {
         iconPreset: String? = "openai",
         customIconFilename: String? = nil,
         usageSource: CustomEndpointUsageSource = .manual,
+        usagePreset: CustomEndpointUsagePreset? = nil,
         usageURL: String? = nil,
         usageRecordsPath: String? = nil,
         usageModelField: String? = nil,
@@ -139,6 +141,7 @@ public struct CustomEndpoint: Identifiable, Codable, Equatable, Sendable {
         self.iconPreset = iconPreset
         self.customIconFilename = customIconFilename
         self.usageSource = usageSource
+        self.usagePreset = usagePreset
         self.usageURL = usageURL
         self.usageRecordsPath = usageRecordsPath
         self.usageModelField = usageModelField
@@ -265,6 +268,7 @@ public struct CustomEndpoint: Identifiable, Codable, Equatable, Sendable {
         case iconPreset
         case customIconFilename
         case usageSource
+        case usagePreset
         case usageURL
         case usageRecordsPath
         case usageModelField
@@ -300,6 +304,7 @@ public struct CustomEndpoint: Identifiable, Codable, Equatable, Sendable {
         self.iconPreset = try container.decodeIfPresent(String.self, forKey: .iconPreset)
         self.customIconFilename = try container.decodeIfPresent(String.self, forKey: .customIconFilename)
         self.usageSource = try container.decodeIfPresent(CustomEndpointUsageSource.self, forKey: .usageSource) ?? .manual
+        self.usagePreset = try container.decodeIfPresent(CustomEndpointUsagePreset.self, forKey: .usagePreset)
         self.usageURL = try container.decodeIfPresent(String.self, forKey: .usageURL)
         self.usageRecordsPath = try container.decodeIfPresent(String.self, forKey: .usageRecordsPath)
         self.usageModelField = try container.decodeIfPresent(String.self, forKey: .usageModelField)
@@ -346,6 +351,7 @@ public struct CustomEndpoint: Identifiable, Codable, Equatable, Sendable {
         if usageSource != .manual {
             try container.encode(usageSource, forKey: .usageSource)
         }
+        try container.encodeIfPresent(usagePreset, forKey: .usagePreset)
         try container.encodeIfPresent(usageURL, forKey: .usageURL)
         try container.encodeIfPresent(usageRecordsPath, forKey: .usageRecordsPath)
         try container.encodeIfPresent(usageModelField, forKey: .usageModelField)
